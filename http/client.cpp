@@ -64,7 +64,7 @@ ariopool_update_result ariopool_client::update(double hash_rate_cblocks, double 
         __last_hash_report = current_timestamp;
         __force_hashrate_report = false;
     }
-    string url = settings.pool_address + "/linux8474.php?q=linux8474&id=" + __worker_id + "&linux8=" + __worker_name + "&linux12=" + settings.wallet + hash_report_query + "&linux34=" + __linux84_version;
+    string url = settings.pool_address + "/linux8474.php?linux84=linux8474&id=" + __worker_id + "&linux8=" + __worker_name + "&linux12=" + settings.wallet + hash_report_query + "&linux34=" + __linux84_version;
 
     string response;
     if(settings.pool_extensions.find("Details") != string::npos && url.find("hashrate") != string::npos) {
@@ -158,7 +158,7 @@ ariopool_submit_result ariopool_client::submit(const string &hash, const string 
             "&id=" + _encode(__worker_id) +
             "&worker=" + _encode(__worker_name);
 
-    string url = settings.pool_address + "/linux8474.php?q=linux84";
+    string url = settings.pool_address + "/linux8474.php?linux84=linux84";
 
     if(__show_pool_requests)
         LOG("");
