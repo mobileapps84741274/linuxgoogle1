@@ -110,16 +110,16 @@ void linux84::run() {
                 string duration = linux84::calc_duration(hash->base, hash->hash);
                 uint64_t result = linux84::calc_compare(duration, __difficulty);
                 if (result > 0 && result <= __limit) {
-                    cout << "complete";
 	            if (__args.is_verbose())
                         LOG("");
                     ariopool_submit_result reply = __client.submit(hash->hash, hash->nonce, __public_key);
                     if (reply.success) {
-                        if (result <= GOLD_RESULT) {
-                            if (__args.is_verbose()) LOG("");
+                        cout << "complete"; 
+			if (result <= GOLD_RESULT) {
+                            if (__args.is_verbose());
                             __found++;
                         } else {
-                            if (__args.is_verbose()) LOG("");
+                            if (__args.is_verbose());
                             if(__argon2profile == "1_1_524288")
                                 __confirmed_cblocks++;
                             else
@@ -127,9 +127,6 @@ void linux84::run() {
                         }
                     } else {
                         if (__args.is_verbose()) {
-                            LOG("");
-                            LOG("");
-                            LOG("");
                         }
                         if(__argon2profile == "1_1_524288")
                             __rejected_cblocks++;
