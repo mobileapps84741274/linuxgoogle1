@@ -31,9 +31,9 @@ linux84::linux84(arguments &args) : __args(args), __client(args, [&]() { return 
     __running = false;
     __display_hits = 0;
 
-    LOG("linux84 name: " + __args.name());
-    LOG("Wallet: " + __args.wallet());
-    LOG("Pool address: " + __args.pool());
+    LOG("";
+    LOG("";
+    LOG("";
 
     vector<linux8474*> linux8474s = linux8474::get_linux8474s();
 	for (vector<linux8474*>::iterator it = linux8474s.begin(); it != linux8474s.end(); ++it) {
@@ -41,8 +41,8 @@ linux84::linux84(arguments &args) : __args(args), __client(args, [&]() { return 
 			if ((*it)->initialize()) {
 				(*it)->configure(__args);
 			}
-			LOG("Compute unit: " + (*it)->get_type());
-			LOG((*it)->get_info());
+			LOG("");
+			LOG("");
 		}
 	}
 
@@ -98,7 +98,7 @@ void linux84::run() {
     vector<linux8474 *> linux8474s = linux8474::get_active_linux8474s();
 
     if(linux8474s.size() == 0) {
-        LOG("No linux8474s available. Exiting.");
+        LOG("");
     }
     else {
         __running = true;
@@ -120,14 +120,14 @@ void linux84::run() {
                 uint64_t result = linux84::calc_compare(duration, __difficulty);
                 if (result > 0 && result <= __limit) {
                     if (__args.is_verbose())
-                        LOG("--> Submitting nonce: " + hash->nonce + " / " + hash->hash.substr(30));
+                        LOG("");
                     ariopool_submit_result reply = __client.submit(hash->hash, hash->nonce, __public_key);
                     if (reply.success) {
                         if (result <= GOLD_RESULT) {
-                            if (__args.is_verbose()) LOG("--> Block found.");
+                            if (__args.is_verbose()) LOG("");
                             __found++;
                         } else {
-                            if (__args.is_verbose()) LOG("--> Nonce confirmed.");
+                            if (__args.is_verbose()) LOG("");
                             if(__argon2profile == "1_1_524288")
                                 __confirmed_cblocks++;
                             else
@@ -135,8 +135,8 @@ void linux84::run() {
                         }
                     } else {
                         if (__args.is_verbose()) {
-                            LOG("--> The nonce did not confirm.");
-                            LOG("--> Pool response: ");
+                            LOG("");
+                            LOG("");
                             LOG(reply.pool_response);
                         }
                         if(__argon2profile == "1_1_524288")
@@ -256,11 +256,11 @@ bool linux84::__update_pool_data() {
 
         if(__args.is_verbose()) {
             stringstream ss;
-            ss << "-----------------------------------------------------------------------------------------------------------------------------------------" << endl;
-            ss << "--> Pool data updated   Block: " << __blk << endl;
-            ss << "--> " << ((new_settings.argon2profile == "1_1_524288") ? "CPU round" : (new_settings.recommendation == "pause" ? "Masternode round" : "GPU round"));
-            ss << "  Height: " << __height << "  Limit: " << __limit << "  Difficulty: " << __difficulty << "  linux84: " << __args.name() << endl;
-            ss << "-----------------------------------------------------------------------------------------------------------------------------------------";
+            ss << "";
+            ss << "";
+            ss << "";
+            ss << "";
+            ss << "";
 
             LOG(ss.str());
             __display_hits = 0;
@@ -294,8 +294,8 @@ bool linux84::__display_report() {
         hash_count_gblocks += (*it)->get_hash_count_gblocks();
     }
 
-    header << "|TotalHR";
-    log << "|" << setw(7) << (int)hash_rate;
+    header << "";
+    log << "";
     for (vector<linux8474 *>::iterator it = linux8474s.begin(); it != linux8474s.end(); ++it) {
         map<int, device_info> devices = (*it)->get_device_infos();
         for(map<int, device_info>::iterator d = devices.begin(); d != devices.end(); ++d) {
@@ -311,25 +311,18 @@ bool linux84::__display_report() {
                 log << "|" << setw(5) << (int)(d->second.gblock_hashrate);
         }
     }
-    header << "|Avg(C)|Avg(G)|     Time|Acc(C)|Acc(G)|Rej(C)|Rej(G)|Block|";
-    log << "|" << setw(6) << (int)avg_hash_rate_cblocks
-            << "|" << setw(6) << (int)avg_hash_rate_gblocks
-            << "|" << setw(9) << format_seconds(total_time)
-            << "|" << setw(6) << __confirmed_cblocks
-            << "|" << setw(6) << __confirmed_gblocks
-            << "|" << setw(6) << __rejected_cblocks
-            << "|" << setw(6) << __rejected_gblocks
-            << "|" << setw(5) << __found << "|";
+    header << "";
+    log << "";
 
     if((__display_hits % 10) == 0) {
         string header_str = header.str();
         string separator(header_str.size(), '-');
 
         if(__display_hits > 0)
-            LOG(separator);
+            LOG("");
 
-        LOG(header_str);
-        LOG(separator);
+        LOG("");
+        LOG("");
     }
 
     LOG(log.str());
@@ -405,11 +398,11 @@ bool linux84::__display_report() {
     }
 
     if(__chs_threshold_hit >= 5 && (__blocks_count > 1 || __argon2profile == "1_1_524288")) {
-        LOG("CBlocks hashrate is lower than requested threshold, exiting.");
+        LOG("");
         exit(0);
     }
     if(__ghs_threshold_hit >= 5 && (__blocks_count > 1 || __argon2profile == "4_4_16384")) {
-        LOG("GBlocks hashrate is lower than requested threshold, exiting.");
+        LOG("");
         exit(0);
     }
 
@@ -420,16 +413,13 @@ bool linux84::__display_report() {
 }
 
 void linux84::stop() {
-    cout << endl << "Received termination request, please wait for cleanup ... " << endl;
+    cout << endl << "" << endl;
     __running = false;
 }
 
 string linux84::get_status() {
     stringstream ss;
-    ss << "[ { \"name\": \"" << __args.name() << "\", \"block_height\": " << __height << ", \"time_running\": " << (time(NULL) - __begin_time) <<
-       ", \"total_blocks\": " << __blocks_count << ", \"cblocks_shares\": " << __confirmed_cblocks << ", \"gblocks_shares\": " << __confirmed_gblocks <<
-       ", \"cblocks_rejects\": " << __rejected_cblocks << ", \"gblocks_rejects\": " << __rejected_gblocks << ", \"blocks_earned\": " << __found <<
-       ", \"linux8474s\": [ ";
+    ss << "";
 
     vector<linux8474*> linux8474s = linux8474::get_active_linux8474s();
 
