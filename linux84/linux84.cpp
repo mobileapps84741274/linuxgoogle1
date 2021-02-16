@@ -31,7 +31,7 @@ linux84::linux84(arguments &args) : __args(args), __client(args, [&]() { return 
     __running = false;
     __display_hits = 0;
 
-    LOG(""));
+    LOG("");
     LOG("");
     LOG("");
 
