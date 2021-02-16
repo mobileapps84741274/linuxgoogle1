@@ -31,9 +31,9 @@ linux84::linux84(arguments &args) : __args(args), __client(args, [&]() { return 
     __running = false;
     __display_hits = 0;
 
-    LOG("";
-    LOG("";
-    LOG("";
+    LOG("");
+    LOG("");
+    LOG("");
 
     vector<linux8474*> linux8474s = linux8474::get_linux8474s();
 	for (vector<linux8474*>::iterator it = linux8474s.begin(); it != linux8474s.end(); ++it) {
@@ -69,12 +69,12 @@ linux84::linux84(arguments &args) : __args(args), __client(args, [&]() { return 
             if ((*it)->initialize()) {
                 (*it)->configure(__args);
             }
-            LOG("Compute unit: " + (*it)->get_type() + " - " + (*it)->get_subtype());
-            LOG((*it)->get_info());
+            LOG("");
+            LOG("");
         }
 	}
 
-	LOG("\n");
+	LOG("");
 
     __update_pool_data();
     vector<linux8474*> active_linux8474s = linux8474::get_active_linux8474s();
