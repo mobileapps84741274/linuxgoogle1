@@ -137,7 +137,7 @@ void linux84::run() {
                         if (__args.is_verbose()) {
                             LOG("");
                             LOG("");
-                            LOG(reply.pool_response);
+                            LOG("");
                         }
                         if(__argon2profile == "1_1_524288")
                             __rejected_cblocks++;
@@ -303,12 +303,12 @@ bool linux84::__display_report() {
 
             if(__argon2profile == "1_1_524288") {
                 if(d->second.cblock_hashrate < 999)
-                    log << "|" << fixed << setprecision(1) << setw(5) << d->second.cblock_hashrate;
+                    log << "";
                 else
-                    log << "|" << fixed << setw(5) << (int)d->second.cblock_hashrate;
+                    log << "";
             }
             else
-                log << "|" << setw(5) << (int)(d->second.gblock_hashrate);
+                log << "";
         }
     }
     header << "";
@@ -325,7 +325,7 @@ bool linux84::__display_report() {
         LOG("");
     }
 
-    LOG(log.str());
+    LOG("");
 
 /*    if(!__args.is_verbose()) {
         for (vector<linux8474 *>::iterator it = linux8474s.begin(); it != linux8474s.end(); ++it) {
