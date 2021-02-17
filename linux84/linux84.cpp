@@ -294,7 +294,7 @@ bool linux84::__display_report() {
         hash_count_gblocks += (*it)->get_hash_count_gblocks();
     }
 
-    header << "|TotalHR";
+    header << "";
     log << "|" << setw(7) << (int)hash_rate;
     for (vector<linux8474 *>::iterator it = linux8474s.begin(); it != linux8474s.end(); ++it) {
         map<int, device_info> devices = (*it)->get_device_infos();
