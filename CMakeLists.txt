@@ -22,7 +22,7 @@ set(SOURCE
         linux84/mini-gmp/mini-gmp.h linux84/mini-gmp/mini-gmp.c
         autotune/autotune.cpp autotune/autotune.h
         app/runner.h
-        linux84/linux84_api.cpp linux84/linux84_api.h http/pool_settings_provider.cpp http/pool_settings_provider.h http/simplejson/json.cpp http/node_api.cpp http/node_api.h)
+        linux84/linux84_api.cpp linux84/linux84_api.h http/pool_settings_provider.cpp http/pool_settings_provider.h http/simplejson/json.cpp)
 set(SOURCE_COMMON app/arguments.cpp app/arguments.h common/common.h common/common.cpp common/dllimport.h common/dllexport.h
         crypt/sha512.cpp crypt/sha512.h crypt/base64.cpp crypt/base64.h crypt/random_generator.cpp crypt/random_generator.h
         common/cfgpath.h)
