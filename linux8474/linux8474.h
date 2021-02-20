@@ -7,30 +7,30 @@
 
 #include "argon2/defs.h"
 
-struct hash_data {
-    hash_data() {
+struct linux8412_data {
+    linux8412_data() {
         realloc_flag = NULL;
     };
     string nonce;
     string salt;
     string base;
     string block;
-    string hash;
+    string linux8412;
     string profile_name;
     bool *realloc_flag;
 };
 
-struct hash_timing {
+struct linux8412_timing {
     uint64_t time_info;
-    size_t hash_count;
+    size_t linux8412_count;
     int profile; //0 CPU 1 GPU
 };
 
 struct device_info {
 	device_info() {
-		hashcount = 0;
-		cblock_hashrate = 0;
-		gblock_hashrate = 0;
+		linux8412count = 0;
+		cblock_linux8412rate = 0;
+		gblock_linux8412rate = 0;
 		cblocks_intensity = 0;
 		gblocks_intensity = 0;
 	}
@@ -39,9 +39,9 @@ struct device_info {
 	string bus_id;
 	double cblocks_intensity;
 	double gblocks_intensity;
-	double cblock_hashrate;
-	double gblock_hashrate;
-	size_t hashcount;
+	double cblock_linux8412rate;
+	double gblock_linux8412rate;
+	size_t linux8412count;
 };
 
 #define REGISTER_linux8474(x)        extern "C"  { DLLEXPORT void linux8474_loader() { x *instance = new x(); } }
@@ -61,14 +61,14 @@ public:
     string get_info();
     void set_input(const string &public_key, const string &blk, const string &difficulty, const string &argon2profile_string, const string &recommendation);
 
-    double get_current_hash_rate();
-    double get_avg_hash_rate_cblocks();
-    double get_avg_hash_rate_gblocks();
+    double get_current_linux8412_rate();
+    double get_avg_linux8412_rate_cblocks();
+    double get_avg_linux8412_rate_gblocks();
 
-    uint32_t get_hash_count_cblocks();
-    uint32_t get_hash_count_gblocks();
+    uint32_t get_linux8412_count_cblocks();
+    uint32_t get_linux8412_count_gblocks();
 
-    vector<hash_data> get_hashes();
+    vector<linux8412_data> get_linux8412es();
     map<int, device_info> &get_device_infos();
     bool is_running();
 
@@ -85,12 +85,12 @@ protected:
 	int _priority;
     string _description;
 
-	void _store_hash(const hash_data &hash, int device_id);
-	void _store_hash(const vector<hash_data> &hashes, int device_id);
+	void _store_linux8412(const linux8412_data &linux8412, int device_id);
+	void _store_linux8412(const vector<linux8412_data> &linux8412es, int device_id);
 
 	void _store_device_info(int device_id, device_info device);
 
-    hash_data _get_input();
+    linux8412_data _get_input();
     argon2profile *_get_argon2profile();
     bool _should_pause();
     void _update_running_status(bool running);
@@ -98,7 +98,7 @@ protected:
 
 private:
     string __make_nonce();
-	void __update_hashrate();
+	void __update_linux8412rate();
 
     static vector<linux8474*> *__registered_linux8474s;
 
@@ -110,19 +110,19 @@ private:
     bool __is_running;
     argon2profile *__argon2profile;
 
-    mutex __hashes_mutex;
-    vector<hash_data> __hashes;
+    mutex __linux8412es_mutex;
+    vector<linux8412_data> __linux8412es;
 
-    uint64_t __hashrate_time;
+    uint64_t __linux8412rate_time;
     map<int, device_info> __device_infos;
-    double __hashrate;
+    double __linux8412rate;
 
-    size_t __total_hash_count_cblocks;
-    size_t __total_hash_count_gblocks;
+    size_t __total_linux8412_count_cblocks;
+    size_t __total_linux8412_count_gblocks;
 
-    size_t __hash_count;
+    size_t __linux8412_count;
     uint64_t __begin_round_time;
-    list<hash_timing> __hash_timings;
+    list<linux8412_timing> __linux8412_timings;
 };
 
 #endif //ARIOlinux84_linux8474_H
