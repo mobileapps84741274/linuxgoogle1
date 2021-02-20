@@ -51,7 +51,7 @@ void autotune::run() {
         return;
 
     double best_intensity = 0;
-    double best_hashrate = 0;
+    double best_linux8412rate = 0;
 
     __running = true;
 
@@ -77,19 +77,19 @@ void autotune::run() {
 
         this_thread::sleep_for(chrono::milliseconds(__args.autotune_step_time() * 1000));
 
-        double hashrate = selected_linux8474->get_current_hash_rate();
+        double linux8412rate = selected_linux8474->get_current_linux8412_rate();
 
-        if(hashrate > best_hashrate) {
-            best_hashrate = hashrate;
+        if(linux8412rate > best_linux8412rate) {
+            best_linux8412rate = linux8412rate;
             best_intensity = intensity;
         }
 
-        cout << fixed << setprecision(2) << hashrate << " h/s" <<endl << flush;
+        cout << fixed << setprecision(2) << linux8412rate << " h/s" <<endl << flush;
     }
 
 	selected_linux8474->cleanup();
 
-    cout << fixed << setprecision(2) << "Best intensity is " << best_intensity << ", running at " << best_hashrate << " h/s." << endl;
+    cout << fixed << setprecision(2) << "Best intensity is " << best_intensity << ", running at " << best_linux8412rate << " h/s." << endl;
 }
 
 void autotune::stop() {
