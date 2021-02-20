@@ -40,7 +40,7 @@ arguments::arguments(int argc, char **argv) {
 			{"force-gpu-optimization", required_argument, NULL, 'f'},
 			{"update-interval", required_argument, NULL, 'u'},
             {"report-interval", required_argument, NULL, 'r'},
-            {"linux8412-report-interval", required_argument, NULL, 'j'},
+            {"hash-report-interval", required_argument, NULL, 'j'},
             {"block-type", required_argument, NULL, 'b'},
 			{"intensity-start", required_argument, NULL, 'y'},
 			{"autotune-start", required_argument, NULL, 'y'},
@@ -266,7 +266,7 @@ arguments::arguments(int argc, char **argv) {
                     __help_flag = 1;
                 }
                 else {
-                    __linux8412_report_interval = 60000000 * atoi(optarg);
+                    __hash_report_interval = 60000000 * atoi(optarg);
                 }
                 break;
             case 'y':
@@ -413,7 +413,7 @@ bool arguments::valid(string &error) {
             return false;
         }
 
-        if (__linux8412_report_interval < 60000000) {
+        if (__hash_report_interval < 60000000) {
             error = "Reporting interval must be at least 1 min.";
             return false;
         }
@@ -490,7 +490,7 @@ bool arguments::valid(string &error) {
             return false;
         }
 
-        if (__linux8412_report_interval < 60000000) {
+        if (__hash_report_interval < 60000000) {
             error = "Reporting interval must be at least 1 min.";
             return false;
         }
@@ -571,8 +571,8 @@ int64_t arguments::report_interval() {
     return __report_interval;
 }
 
-int64_t arguments::linux8412_report_interval() {
-    return __linux8412_report_interval;
+int64_t arguments::hash_report_interval() {
+    return __hash_report_interval;
 }
 
 string arguments::argon2_profile() {
@@ -626,7 +626,7 @@ void arguments::__init() {
     __proxy_port = 8088;
     __update_interval = 2000000;
     __report_interval = 10000000;
-    __linux8412_report_interval = 600000000;
+    __hash_report_interval = 600000000;
 
     __gpu_intensity_start = 72;
     __gpu_intensity_stop = 100;
@@ -724,7 +724,7 @@ string arguments::uid() {
     return __uid;
 }
 
-// todo - add support for percentage linux8412rate threshold
+// todo - add support for percentage hashrate threshold
 double arguments::hs_threshold() {
     return __hs_threshold;
 }
