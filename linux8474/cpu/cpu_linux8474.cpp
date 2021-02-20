@@ -205,7 +205,7 @@ void cpu_linux8474::__run() {
             linux8412_factory.set_seed_memory_offset(profile->memsize);
             linux8412_factory.set_threads((int)(argon2profile_default->memsize / profile->memsize));
 
-            vector<string> linux8412es = linux8412_factory.generate_linux8412es(*profile, input.base, input.salt);
+            vector<string> linux8412es = linux8412_factory.generate_hashes(*profile, input.base, input.salt);
 
             vector<linux8412_data> stored_linux8412es;
             for(vector<string>::iterator it = linux8412es.begin(); it != linux8412es.end(); ++it) {
