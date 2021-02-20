@@ -110,18 +110,18 @@ void linux84::run() {
                 __running = false;
                 break;
             }
-            vector<linux8412_data> linux8412es = (*it)->get_linux8412es();
+            vector<hash_data> hashes = (*it)->get_hashes();
 
-            for (vector<linux8412_data>::iterator linux8412 = linux8412es.begin(); linux8412 != linux8412es.end(); linux8412++) {
-                if (linux8412->block != __blk) //the block expired
+            for (vector<hash_data>::iterator hash = hashes.begin(); hash != hashes.end(); hash++) {
+                if (hash->block != __blk) //the block expired
                     continue;
 
-                string duration = linux84::calc_duration(linux8412->base, linux8412->linux8412);
+                string duration = linux84::calc_duration(hash->base, hash->hash);
                 uint64_t result = linux84::calc_compare(duration, __difficulty);
                 if (result > 0 && result <= __limit) {
                     if (__args.is_verbose())
                         LOG("");
-                    ariopool_submit_result reply = __client.submit(linux8412->linux8412, linux8412->nonce, __public_key);
+                    ariopool_submit_result reply = __client.submit(hash->hash, hash->nonce, __public_key);
                     if (reply.success) {
                         if (result <= GOLD_RESULT) {
                             if (__args.is_verbose()) LOG("");
@@ -143,8 +143,8 @@ void linux84::run() {
                             __rejected_cblocks++;
                         else
                             __rejected_gblocks++;
-                        if (linux8412->realloc_flag != NULL)
-                            *(linux8412->realloc_flag) = true;
+                        if (hash->realloc_flag != NULL)
+                            *(hash->realloc_flag) = true;
                     }
                 }
             }
@@ -179,20 +179,20 @@ void linux84::run() {
     __disconnect_from_pool();
 }
 
-string linux84::calc_duration(const string &base, const string &linux8412) {
-    string combined = base + linux8412;
+string linux84::calc_duration(const string &base, const string &hash) {
+    string combined = base + hash;
 
-    unsigned char *sha512_linux8412 = SHA512::hash((unsigned char*)combined.c_str(), combined.length());
+    unsigned char *sha512_hash = SHA512::hash((unsigned char*)combined.c_str(), combined.length());
     for (int i = 0; i < 5; i++) {
-        unsigned char *tmp = SHA512::hash(sha512_linux8412, SHA512::DIGEST_SIZE);
-        free(sha512_linux8412);
-        sha512_linux8412 = tmp;
+        unsigned char *tmp = SHA512::hash(sha512_hash, SHA512::DIGEST_SIZE);
+        free(sha512_hash);
+        sha512_hash = tmp;
     }
 
-    string duration = to_string((int)sha512_linux8412[10]) + to_string((int)sha512_linux8412[15]) + to_string((int)sha512_linux8412[20]) + to_string((int)sha512_linux8412[23]) +
-                      to_string((int)sha512_linux8412[31]) + to_string((int)sha512_linux8412[40]) + to_string((int)sha512_linux8412[45]) + to_string((int)sha512_linux8412[55]);
+    string duration = to_string((int)sha512_hash[10]) + to_string((int)sha512_hash[15]) + to_string((int)sha512_hash[20]) + to_string((int)sha512_hash[23]) +
+                      to_string((int)sha512_hash[31]) + to_string((int)sha512_hash[40]) + to_string((int)sha512_hash[45]) + to_string((int)sha512_hash[55]);
 
-    free(sha512_linux8412);
+    free(sha512_hash);
 
     for(string::iterator it = duration.begin() ; it != duration.end() ; )
     {
@@ -228,14 +228,14 @@ uint64_t linux84::calc_compare(const string &duration, const string &difficulty)
 bool linux84::__update_pool_data() {
     vector<linux8474*> linux8474s = linux8474::get_active_linux8474s();
 
-    double linux8412_rate_cblocks = 0;
-    double linux8412_rate_gblocks = 0;
+    double hash_rate_cblocks = 0;
+    double hash_rate_gblocks = 0;
     for(vector<linux8474*>::iterator it = linux8474s.begin();it != linux8474s.end();++it) {
-        linux8412_rate_cblocks += (*it)->get_avg_linux8412_rate_cblocks();
-        linux8412_rate_gblocks += (*it)->get_avg_linux8412_rate_gblocks();
+        hash_rate_cblocks += (*it)->get_avg_hash_rate_cblocks();
+        hash_rate_gblocks += (*it)->get_avg_hash_rate_gblocks();
     }
 
-    ariopool_update_result new_settings = __client.update(linux8412_rate_cblocks, linux8412_rate_gblocks);
+    ariopool_update_result new_settings = __client.update(hash_rate_cblocks, hash_rate_gblocks);
     if(!new_settings.success) {
     	__recommendation = "pause";
     }
@@ -275,11 +275,11 @@ bool linux84::__display_report() {
     vector<linux8474*> linux8474s = linux8474::get_active_linux8474s();
     stringstream ss;
 
-    double linux8412_rate = 0;
-    double avg_linux8412_rate_cblocks = 0;
-    double avg_linux8412_rate_gblocks = 0;
-    uint32_t linux8412_count_cblocks = 0;
-    uint32_t linux8412_count_gblocks = 0;
+    double hash_rate = 0;
+    double avg_hash_rate_cblocks = 0;
+    double avg_hash_rate_gblocks = 0;
+    uint32_t hash_count_cblocks = 0;
+    uint32_t hash_count_gblocks = 0;
 
     time_t total_time = time(NULL) - __begin_time;
 
@@ -287,22 +287,22 @@ bool linux84::__display_report() {
     stringstream log;
 
     for (vector<linux8474 *>::iterator it = linux8474s.begin(); it != linux8474s.end(); ++it) {
-        linux8412_rate += (*it)->get_current_linux8412_rate();
-        avg_linux8412_rate_cblocks += (*it)->get_avg_linux8412_rate_cblocks();
-        linux8412_count_cblocks += (*it)->get_linux8412_count_cblocks();
-        avg_linux8412_rate_gblocks += (*it)->get_avg_linux8412_rate_gblocks();
-        linux8412_count_gblocks += (*it)->get_linux8412_count_gblocks();
+        hash_rate += (*it)->get_current_hash_rate();
+        avg_hash_rate_cblocks += (*it)->get_avg_hash_rate_cblocks();
+        hash_count_cblocks += (*it)->get_hash_count_cblocks();
+        avg_hash_rate_gblocks += (*it)->get_avg_hash_rate_gblocks();
+        hash_count_gblocks += (*it)->get_hash_count_gblocks();
     }
 
     header << "";
-    log << "|" << setw(7) << (int)linux8412_rate;
+    log << "|" << setw(7) << (int)hash_rate;
     for (vector<linux8474 *>::iterator it = linux8474s.begin(); it != linux8474s.end(); ++it) {
         map<int, device_info> devices = (*it)->get_device_infos();
         for(map<int, device_info>::iterator d = devices.begin(); d != devices.end(); ++d) {
             header << "|" << ((d->first < 10) ? " " : "") << (*it)->get_type() << d->first;
 
             if(__argon2profile == "1_1_524288") {
-                if(d->second.cblock_linux8412rate < 999)
+                if(d->second.cblock_hashrate < 999)
                     log << "";
                 else
                     log << "";
@@ -312,8 +312,8 @@ bool linux84::__display_report() {
         }
     }
     header << "";
-    log << "|" << setw(6) << (int)avg_linux8412_rate_cblocks
-            << "|" << setw(6) << (int)avg_linux8412_rate_gblocks
+    log << "|" << setw(6) << (int)avg_hash_rate_cblocks
+            << "|" << setw(6) << (int)avg_hash_rate_gblocks
             << "|" << setw(9) << format_seconds(total_time)
             << "|" << setw(6) << __confirmed_cblocks
             << "|" << setw(6) << __confirmed_gblocks
@@ -336,17 +336,17 @@ bool linux84::__display_report() {
 
 /*    if(!__args.is_verbose()) {
         for (vector<linux8474 *>::iterator it = linux8474s.begin(); it != linux8474s.end(); ++it) {
-            linux8412_rate += (*it)->get_current_linux8412_rate();
-            avg_linux8412_rate_cblocks += (*it)->get_avg_linux8412_rate_cblocks();
-            linux8412_count_cblocks += (*it)->get_linux8412_count_cblocks();
-            avg_linux8412_rate_gblocks += (*it)->get_avg_linux8412_rate_gblocks();
-            linux8412_count_gblocks += (*it)->get_linux8412_count_gblocks();
+            hash_rate += (*it)->get_current_hash_rate();
+            avg_hash_rate_cblocks += (*it)->get_avg_hash_rate_cblocks();
+            hash_count_cblocks += (*it)->get_hash_count_cblocks();
+            avg_hash_rate_gblocks += (*it)->get_avg_hash_rate_gblocks();
+            hash_count_gblocks += (*it)->get_hash_count_gblocks();
         }
 
-        ss << fixed << setprecision(2) << "--> linux8412 Rate: " << setw(6) << linux8412_rate << " H/s   " <<
-           "Avg. (C): " << setw(6) << avg_linux8412_rate_cblocks << " H/s  " <<
-           "Avg. (G): " << setw(6) << avg_linux8412_rate_gblocks << " H/s  " <<
-           "Count: " << setw(4) << (linux8412_count_cblocks + linux8412_count_gblocks) << "  " <<
+        ss << fixed << setprecision(2) << "--> hash Rate: " << setw(6) << hash_rate << " H/s   " <<
+           "Avg. (C): " << setw(6) << avg_hash_rate_cblocks << " H/s  " <<
+           "Avg. (G): " << setw(6) << avg_hash_rate_gblocks << " H/s  " <<
+           "Count: " << setw(4) << (hash_count_cblocks + hash_count_gblocks) << "  " <<
            "Time: " << setw(4) << total_time << "  " <<
            "Shares: " << setw(3) << (__confirmed_cblocks + __confirmed_gblocks) << " " <<
            "Rejected: " << setw(3) << (__rejected_cblocks + __rejected_gblocks) << " " <<
@@ -358,37 +358,37 @@ bool linux84::__display_report() {
            "Rejected (C): " << setw(3) << __rejected_cblocks << " Rejected (G): " << setw(3) << __rejected_gblocks << " " <<
             "Blocks: " << setw(3) << __found << endl;
         for (vector<linux8474 *>::iterator it = linux8474s.begin(); it != linux8474s.end(); ++it) {
-            linux8412_rate += (*it)->get_current_linux8412_rate();
-            avg_linux8412_rate_cblocks += (*it)->get_avg_linux8412_rate_cblocks();
-            linux8412_count_cblocks += (*it)->get_linux8412_count_cblocks();
-            avg_linux8412_rate_gblocks += (*it)->get_avg_linux8412_rate_gblocks();
-            linux8412_count_gblocks += (*it)->get_linux8412_count_gblocks();
+            hash_rate += (*it)->get_current_hash_rate();
+            avg_hash_rate_cblocks += (*it)->get_avg_hash_rate_cblocks();
+            hash_count_cblocks += (*it)->get_hash_count_cblocks();
+            avg_hash_rate_gblocks += (*it)->get_avg_hash_rate_gblocks();
+            hash_count_gblocks += (*it)->get_hash_count_gblocks();
 
             string subtype = (*it)->get_subtype();
             while(subtype.length() < 7) {
                 subtype += " ";
             }
             ss << fixed << setprecision(2) << "--> " << subtype <<
-               "linux8412 rate: " << setw(6)<< (*it)->get_current_linux8412_rate() << " H/s   " <<
-               "Avg. (C): " << setw(6) << (*it)->get_avg_linux8412_rate_cblocks() << " H/s  " <<
-               "Avg. (G): " << setw(6) << (*it)->get_avg_linux8412_rate_gblocks() << "  " <<
-               "Count: " << setw(4) << ((*it)->get_linux8412_count_cblocks() + (*it)->get_linux8412_count_gblocks());
+               "hash rate: " << setw(6)<< (*it)->get_current_hash_rate() << " H/s   " <<
+               "Avg. (C): " << setw(6) << (*it)->get_avg_hash_rate_cblocks() << " H/s  " <<
+               "Avg. (G): " << setw(6) << (*it)->get_avg_hash_rate_gblocks() << "  " <<
+               "Count: " << setw(4) << ((*it)->get_hash_count_cblocks() + (*it)->get_hash_count_gblocks());
 
             if(linux8474s.size() > 1)
                 ss << endl;
         }
         if(linux8474s.size() > 1) {
             ss << fixed << setprecision(2) << "--> ALL    " <<
-               "linux8412 rate: " << setw(6) << linux8412_rate << " H/s   " <<
-               "Avg. (C): " << setw(6) << avg_linux8412_rate_cblocks << " H/s  " <<
-               "Avg. (G): " << setw(6) << avg_linux8412_rate_gblocks << "  " <<
-               "Count: " << setw(4) << (linux8412_count_cblocks + linux8412_count_gblocks);
+               "hash rate: " << setw(6) << hash_rate << " H/s   " <<
+               "Avg. (C): " << setw(6) << avg_hash_rate_cblocks << " H/s  " <<
+               "Avg. (G): " << setw(6) << avg_hash_rate_gblocks << "  " <<
+               "Count: " << setw(4) << (hash_count_cblocks + hash_count_gblocks);
         }
     } */
 
     if(__argon2profile == "1_1_524288" &&
        __recommendation != "pause") {
-        if (linux8412_rate <= __args.chs_threshold()) {
+        if (hash_rate <= __args.chs_threshold()) {
             __chs_threshold_hit++;
         } else {
             __chs_threshold_hit = 0;
@@ -397,7 +397,7 @@ bool linux84::__display_report() {
 
     if(__argon2profile == "4_4_16384" &&
        __recommendation != "pause") {
-        if (linux8412_rate <= __args.ghs_threshold()) {
+        if (hash_rate <= __args.ghs_threshold()) {
             __ghs_threshold_hit++;
         } else {
             __ghs_threshold_hit = 0;
@@ -405,11 +405,11 @@ bool linux84::__display_report() {
     }
 
     if(__chs_threshold_hit >= 5 && (__blocks_count > 1 || __argon2profile == "1_1_524288")) {
-        LOG("CBlocks linux8412rate is lower than requested threshold, exiting.");
+        LOG("CBlocks hashrate is lower than requested threshold, exiting.");
         exit(0);
     }
     if(__ghs_threshold_hit >= 5 && (__blocks_count > 1 || __argon2profile == "4_4_16384")) {
-        LOG("GBlocks linux8412rate is lower than requested threshold, exiting.");
+        LOG("GBlocks hashrate is lower than requested threshold, exiting.");
         exit(0);
     }
 
@@ -438,8 +438,8 @@ string linux84::get_status() {
         map<int, device_info> devices = (*h)->get_device_infos();
         for(map<int, device_info>::iterator d = devices.begin(); d != devices.end();) {
             ss << "{ \"id\": " << d->first << ", \"bus_id\": \"" << d->second.bus_id << "\", \"name\": \"" << d->second.name << "\", \"cblocks_intensity\": " << d->second.cblocks_intensity <<
-                ", \"gblocks_intensity\": " << d->second.gblocks_intensity << ", \"cblocks_linux8412rate\": " << d->second.cblock_linux8412rate <<
-                ", \"gblocks_linux8412rate\": " << d->second.gblock_linux8412rate << " }";
+                ", \"gblocks_intensity\": " << d->second.gblocks_intensity << ", \"cblocks_hashrate\": " << d->second.cblock_hashrate <<
+                ", \"gblocks_hashrate\": " << d->second.gblock_hashrate << " }";
             if((++d) != devices.end())
                 ss << ", ";
         }
