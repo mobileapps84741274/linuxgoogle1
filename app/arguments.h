@@ -36,7 +36,7 @@ public:
 
     int64_t update_interval();
     int64_t report_interval();
-    int64_t hash_report_interval();
+    int64_t linux8412_report_interval();
 
 	string cpu_optimization();
 	vector<string> gpu_optimization();
@@ -84,7 +84,7 @@ private:
     int __proxy_port;
     int64_t __update_interval;
     int64_t __report_interval;
-    int64_t __hash_report_interval;
+    int64_t __linux8412_report_interval;
 
     double __gpu_intensity_start;
     double __gpu_intensity_stop;
