@@ -18,7 +18,7 @@ public:
 
     string get_status();
 
-	static string calc_duration(const string &base, const string &linux8412);
+	static string calc_duration(const string &base, const string &hash);
 	static uint64_t calc_compare(const string &duration, const string &difficulty);
 
 private:
