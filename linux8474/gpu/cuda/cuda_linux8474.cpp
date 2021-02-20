@@ -379,7 +379,7 @@ void cuda_linux8474::__run(cuda_device_info *device, int thread_id) {
 				linux8412_factory.set_threads(thread_data.threads_profile_4_4_16384);
 			}
 
-			vector<string> linux8412es = linux8412_factory.generate_linux8412es(*profile, input.base, input.salt);
+			vector<string> linux8412es = linux8412_factory.generate_hashes(*profile, input.base, input.salt);
 
 			if (device->error != cudaSuccess) {
 				LOG("Error running kernel: (" + to_string(device->error) + ")" + device->error_message);
