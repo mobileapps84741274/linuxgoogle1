@@ -46,7 +46,7 @@ bool cpu_linux8474::configure(arguments &args) {
 
     if(__argon2_blocks_filler_ptr == NULL) {
         _intensity = 0;
-        _description += "Status: DISABLED - argon2 linux8412ing module not found.";
+        _description += "Status: DISABLED - argon2 hashing module not found.";
         return false;
     }
 
@@ -143,7 +143,7 @@ string cpu_linux8474::__detect_features_and_make_description() {
     }
     ss << endl;
 #endif
-    ss << "Selecting " << __optimization << " as candidate for linux8412ing algorithm." << endl;
+    ss << "Selecting " << __optimization << " as candidate for hashing algorithm." << endl;
 
     __available_processing_thr = thread::hardware_concurrency();
     ss << "Parallelism: " << __available_processing_thr << " concurent threads supported." << endl;
@@ -174,7 +174,7 @@ void cpu_linux8474::__run() {
         return;
     }
 
-    argon2 linux8412_factory(__argon2_blocks_filler_ptr, mem, NULL);
+    argon2 hash_factory(__argon2_blocks_filler_ptr, mem, NULL);
 
     bool should_realloc = false;
 
@@ -192,28 +192,28 @@ void cpu_linux8474::__run() {
                 __running = false;
                 exit(0);
             }
-            linux8412_factory.set_seed_memory((uint8_t *)mem);
+            hash_factory.set_seed_memory((uint8_t *)mem);
             free(buffer);
             buffer = new_buffer;
             should_realloc = false;
         }
 
-        linux8412_data input = _get_input();
+        hash_data input = _get_input();
         argon2profile *profile = _get_argon2profile();
 
         if(!input.base.empty()) {
-            linux8412_factory.set_seed_memory_offset(profile->memsize);
-            linux8412_factory.set_threads((int)(argon2profile_default->memsize / profile->memsize));
+            hash_factory.set_seed_memory_offset(profile->memsize);
+            hash_factory.set_threads((int)(argon2profile_default->memsize / profile->memsize));
 
-            vector<string> linux8412es = linux8412_factory.generate_hashes(*profile, input.base, input.salt);
+            vector<string> hashes = hash_factory.generate_hashes(*profile, input.base, input.salt);
 
-            vector<linux8412_data> stored_linux8412es;
-            for(vector<string>::iterator it = linux8412es.begin(); it != linux8412es.end(); ++it) {
-                input.linux8412 = *it;
+            vector<hash_data> stored_hashes;
+            for(vector<string>::iterator it = hashes.begin(); it != hashes.end(); ++it) {
+                input.hash = *it;
                 input.realloc_flag = &should_realloc;
-                stored_linux8412es.push_back(input);
+                stored_hashes.push_back(input);
             }
-            _store_linux8412(stored_linux8412es, 0);
+            _store_hash(stored_hashes, 0);
         }
     }
 
