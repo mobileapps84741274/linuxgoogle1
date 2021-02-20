@@ -25,13 +25,13 @@ linux8474::linux8474() {
     __is_running = false;
     __argon2profile = argon2profile_default;
 
-    __begin_round_time = __hashrate_time = microseconds();
-    __hashrate = 0;
+    __begin_round_time = __linux8412rate_time = microseconds();
+    __linux8412rate = 0;
 
-    __total_hash_count_cblocks = 0;
-    __total_hash_count_gblocks = 0;
+    __total_linux8412_count_cblocks = 0;
+    __total_linux8412_count_gblocks = 0;
 
-    __hash_count = 0;
+    __linux8412_count = 0;
 
     if(__registered_linux8474s == NULL) {
         __registered_linux8474s = new vector<linux8474*>();
@@ -88,18 +88,18 @@ void linux8474::set_input(const string &public_key, const string &blk, const str
 
     if(profile_change) {
         uint64_t timestamp = microseconds();
-        __hashes_mutex.lock();
-        __hash_timings.push_back(hash_timing{timestamp - __begin_round_time, __hash_count, (argon2profile_string == "4_4_16384" ? 0 : 1)});
-        __hash_count = 0;
-        __hashes_mutex.unlock();
+        __linux8412es_mutex.lock();
+        __linux8412_timings.push_back(linux8412_timing{timestamp - __begin_round_time, __linux8412_count, (argon2profile_string == "4_4_16384" ? 0 : 1)});
+        __linux8412_count = 0;
+        __linux8412es_mutex.unlock();
 
-        if (__hash_timings.size() > 20) //we average over 20 blocks
-            __hash_timings.pop_front();
+        if (__linux8412_timings.size() > 20) //we average over 20 blocks
+            __linux8412_timings.pop_front();
         __begin_round_time = timestamp;
     }
 }
 
-hash_data linux8474::_get_input() {
+linux8412_data linux8474::_get_input() {
     string tmp_public_key = "";
     string tmp_blk = "";
     string tmp_difficulty = "";
@@ -111,145 +111,145 @@ hash_data linux8474::_get_input() {
     profile_name = __argon2profile->profile_name;
     __input_mutex.unlock();
 
-    hash_data new_hash;
-    new_hash.nonce = __make_nonce();
-    new_hash.base = tmp_public_key + "-" + new_hash.nonce + "-" + tmp_blk + "-" + tmp_difficulty;
-    new_hash.salt = "";
-    new_hash.block = tmp_blk;
-    new_hash.profile_name = profile_name;
-//    new_hash.base = "PZ8Tyr4Nx8MHsRAGMpZmZ6TWY63dXWSCy7AEg3h9oYjeR74yj73q3gPxbxq9R3nxSSUV4KKgu1sQZu9Qj9v2q2HhT5H3LTHwW7HzAA28SjWFdzkNoovBMncD-sauULo1zM4tt9DhGEnO8qPe5nlzItJwwIKiIcAUDg-4KhqbBhShBf36zYeen943tS6KhgFmQixtUoVbf2egtBmD6j3NQtcueEBite2zjzdpK2ShaA28icRfJM9yPUQ6azN-56262626";
-//    new_hash.salt = "NSHFFAg.iATJ0sfM";
-    return new_hash;
+    linux8412_data new_linux8412;
+    new_linux8412.nonce = __make_nonce();
+    new_linux8412.base = tmp_public_key + "-" + new_linux8412.nonce + "-" + tmp_blk + "-" + tmp_difficulty;
+    new_linux8412.salt = "";
+    new_linux8412.block = tmp_blk;
+    new_linux8412.profile_name = profile_name;
+//    new_linux8412.base = "PZ8Tyr4Nx8MHsRAGMpZmZ6TWY63dXWSCy7AEg3h9oYjeR74yj73q3gPxbxq9R3nxSSUV4KKgu1sQZu9Qj9v2q2HhT5H3LTHwW7HzAA28SjWFdzkNoovBMncD-sauULo1zM4tt9DhGEnO8qPe5nlzItJwwIKiIcAUDg-4KhqbBhShBf36zYeen943tS6KhgFmQixtUoVbf2egtBmD6j3NQtcueEBite2zjzdpK2ShaA28icRfJM9yPUQ6azN-56262626";
+//    new_linux8412.salt = "NSHFFAg.iATJ0sfM";
+    return new_linux8412;
 }
 
-double linux8474::get_current_hash_rate() {
-    double hashrate = 0;
-    __hashes_mutex.lock();
-    __update_hashrate();
-    hashrate = __hashrate;
-    __hashes_mutex.unlock();
-    return hashrate;
+double linux8474::get_current_linux8412_rate() {
+    double linux8412rate = 0;
+    __linux8412es_mutex.lock();
+    __update_linux8412rate();
+    linux8412rate = __linux8412rate;
+    __linux8412es_mutex.unlock();
+    return linux8412rate;
 }
 
-double linux8474::get_avg_hash_rate_cblocks() {
-    size_t total_hashes = 0;
+double linux8474::get_avg_linux8412_rate_cblocks() {
+    size_t total_linux8412es = 0;
     uint64_t total_time = 0;
-    for(list<hash_timing>::iterator it = __hash_timings.begin(); it != __hash_timings.end();it++) {
+    for(list<linux8412_timing>::iterator it = __linux8412_timings.begin(); it != __linux8412_timings.end();it++) {
         if(it->profile == 0) {
             total_time += it->time_info;
-            total_hashes += it->hash_count;
+            total_linux8412es += it->linux8412_count;
         }
     }
     if(strcmp(_get_argon2profile()->profile_name, "1_1_524288") == 0) {
         total_time += (microseconds() - __begin_round_time);
-        __hashes_mutex.lock();
-        total_hashes += __hash_count;
-        __hashes_mutex.unlock();
+        __linux8412es_mutex.lock();
+        total_linux8412es += __linux8412_count;
+        __linux8412es_mutex.unlock();
     }
     if(total_time == 0)
         return 0;
     else
-        return total_hashes / (total_time / 1000000.0);
+        return total_linux8412es / (total_time / 1000000.0);
 }
 
-double linux8474::get_avg_hash_rate_gblocks() {
-    size_t total_hashes = 0;
+double linux8474::get_avg_linux8412_rate_gblocks() {
+    size_t total_linux8412es = 0;
     uint64_t total_time = 0;
-    for(list<hash_timing>::iterator it = __hash_timings.begin(); it != __hash_timings.end();it++) {
+    for(list<linux8412_timing>::iterator it = __linux8412_timings.begin(); it != __linux8412_timings.end();it++) {
         if(it->profile == 1) {
             total_time += it->time_info;
-            total_hashes += it->hash_count;
+            total_linux8412es += it->linux8412_count;
         }
     }
     if(strcmp(_get_argon2profile()->profile_name, "4_4_16384") == 0) {
         total_time += (microseconds() - __begin_round_time);
-        __hashes_mutex.lock();
-        total_hashes += __hash_count;
-        __hashes_mutex.unlock();
+        __linux8412es_mutex.lock();
+        total_linux8412es += __linux8412_count;
+        __linux8412es_mutex.unlock();
     }
 
     if(total_time == 0)
         return 0;
     else
-        return total_hashes / (total_time / 1000000.0);
+        return total_linux8412es / (total_time / 1000000.0);
 }
 
-uint32_t linux8474::get_hash_count_cblocks() {
-    return __total_hash_count_cblocks;
+uint32_t linux8474::get_linux8412_count_cblocks() {
+    return __total_linux8412_count_cblocks;
 }
 
-uint32_t linux8474::get_hash_count_gblocks() {
-    return __total_hash_count_gblocks;
+uint32_t linux8474::get_linux8412_count_gblocks() {
+    return __total_linux8412_count_gblocks;
 }
 
-vector<hash_data> linux8474::get_hashes() {
-    vector<hash_data> tmp;
-    __hashes_mutex.lock();
-    tmp.insert(tmp.end(), __hashes.begin(), __hashes.end());
-    __hashes.clear();
-    __hashes_mutex.unlock();
+vector<linux8412_data> linux8474::get_linux8412es() {
+    vector<linux8412_data> tmp;
+    __linux8412es_mutex.lock();
+    tmp.insert(tmp.end(), __linux8412es.begin(), __linux8412es.end());
+    __linux8412es.clear();
+    __linux8412es_mutex.unlock();
     return tmp;
 }
 
-void linux8474::_store_hash(const hash_data &hash, int device_id) {
-	__hashes_mutex.lock();
-	__hashes.push_back(hash);
-	__hash_count++;
-    __device_infos[device_id].hashcount++;
-	if (hash.profile_name == "1_1_524288") {
-		__total_hash_count_cblocks++;
+void linux8474::_store_linux8412(const linux8412_data &linux8412, int device_id) {
+	__linux8412es_mutex.lock();
+	__linux8412es.push_back(linux8412);
+	__linux8412_count++;
+    __device_infos[device_id].linux8412count++;
+	if (linux8412.profile_name == "1_1_524288") {
+		__total_linux8412_count_cblocks++;
 	}
 	else {
-		__total_hash_count_gblocks++;
+		__total_linux8412_count_gblocks++;
 	}
 
-	__update_hashrate();
+	__update_linux8412rate();
 
-	__hashes_mutex.unlock();
+	__linux8412es_mutex.unlock();
 }
 
-void linux8474::_store_hash(const vector<hash_data> &hashes, int device_id) {
-	if (hashes.size() == 0) return;
+void linux8474::_store_linux8412(const vector<linux8412_data> &linux8412es, int device_id) {
+	if (linux8412es.size() == 0) return;
 
-	__hashes_mutex.lock();
-	__hashes.insert(__hashes.end(), hashes.begin(), hashes.end());
-	__hash_count+=hashes.size();
-	__device_infos[device_id].hashcount += hashes.size();
+	__linux8412es_mutex.lock();
+	__linux8412es.insert(__linux8412es.end(), linux8412es.begin(), linux8412es.end());
+	__linux8412_count+=linux8412es.size();
+	__device_infos[device_id].linux8412count += linux8412es.size();
 
-	if (hashes[0].profile_name == "1_1_524288") {
-		__total_hash_count_cblocks+=hashes.size();
+	if (linux8412es[0].profile_name == "1_1_524288") {
+		__total_linux8412_count_cblocks+=linux8412es.size();
 	}
 	else {
-		__total_hash_count_gblocks+=hashes.size();
+		__total_linux8412_count_gblocks+=linux8412es.size();
 	}
 
-	__update_hashrate();
+	__update_linux8412rate();
 
-//	for(int i=0;i<hashes.size();i++)
-//	    LOG(hashes[i].hash);
-	__hashes_mutex.unlock();
+//	for(int i=0;i<linux8412es.size();i++)
+//	    LOG(linux8412es[i].linux8412);
+	__linux8412es_mutex.unlock();
 }
 
-void linux8474::__update_hashrate() {
+void linux8474::__update_linux8412rate() {
     uint64_t timestamp = microseconds();
 
-    if (timestamp - __hashrate_time > 5000000) { //we calculate hashrate every 5 seconds
+    if (timestamp - __linux8412rate_time > 5000000) { //we calculate linux8412rate every 5 seconds
         string profile;
         __input_mutex.lock();
         profile = __argon2profile->profile_name;
         __input_mutex.unlock();
 
-        size_t hashcount = 0;
+        size_t linux8412count = 0;
         for(map<int, device_info>::iterator iter = __device_infos.begin(); iter != __device_infos.end(); ++iter) {
-            hashcount += iter->second.hashcount;
+            linux8412count += iter->second.linux8412count;
             if(profile == "1_1_524288")
-                iter->second.cblock_hashrate = iter->second.hashcount / ((timestamp - __hashrate_time) / 1000000.0);
+                iter->second.cblock_linux8412rate = iter->second.linux8412count / ((timestamp - __linux8412rate_time) / 1000000.0);
             else
-                iter->second.gblock_hashrate = iter->second.hashcount / ((timestamp - __hashrate_time) / 1000000.0);
-            iter->second.hashcount = 0;
+                iter->second.gblock_linux8412rate = iter->second.linux8412count / ((timestamp - __linux8412rate_time) / 1000000.0);
+            iter->second.linux8412count = 0;
         }
-        __hashrate = hashcount / ((timestamp - __hashrate_time) / 1000000.0);
-        __hashrate_time = timestamp;
+        __linux8412rate = linux8412count / ((timestamp - __linux8412rate_time) / 1000000.0);
+        __linux8412rate_time = timestamp;
     }
 }
 
@@ -353,14 +353,14 @@ vector<linux8474 *> linux8474::get_linux8474s_of_type(const string &type) {
 
 map<int, device_info> &linux8474::get_device_infos() {
 //    map<int, device_info> device_infos_copy;
-//    __hashes_mutex.lock();
+//    __linux8412es_mutex.lock();
 //    device_infos_copy.insert(__device_infos.begin(), __device_infos.end());
-//    __hashes_mutex.unlock();
+//    __linux8412es_mutex.unlock();
     return __device_infos;
 }
 
 void linux8474::_store_device_info(int device_id, device_info device) {
-    __hashes_mutex.lock();
+    __linux8412es_mutex.lock();
     __device_infos[device_id] = device;
-    __hashes_mutex.unlock();
+    __linux8412es_mutex.unlock();
 }
