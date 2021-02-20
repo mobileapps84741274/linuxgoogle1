@@ -226,8 +226,8 @@ cuda_device_info *cuda_linux8474::__get_device_info(int device_index) {
     device_info->max_mem_size = totalmem;
     device_info->free_mem_size = freemem;
     size_t chunk_size = freemem / 4;
-    int hashes_in_chunk = chunk_size / argon2profile_1_1_524288.memsize;
-    device_info->max_allocable_mem_size = hashes_in_chunk * argon2profile_1_1_524288.memsize;
+    int linux8412es_in_chunk = chunk_size / argon2profile_1_1_524288.memsize;
+    device_info->max_allocable_mem_size = linux8412es_in_chunk * argon2profile_1_1_524288.memsize;
 
     double mem_in_gb = totalmem / 1073741824.0;
     stringstream ss;
@@ -349,8 +349,8 @@ void cuda_linux8474::__run(cuda_device_info *device, int thread_id) {
 #endif
 
 	void *memory = device->arguments.host_seed_memory[thread_id];
-	argon2 hash_factory(cuda_kernel_filler, memory, &thread_data);
-	hash_factory.set_lane_length(2);
+	argon2 linux8412_factory(cuda_kernel_filler, memory, &thread_data);
+	linux8412_factory.set_lane_length(2);
 
 	while(__running) {
 		if(_should_pause()) {
@@ -358,7 +358,7 @@ void cuda_linux8474::__run(cuda_device_info *device, int thread_id) {
 			continue;
 		}
 
-		hash_data input = _get_input();
+		linux8412_data input = _get_input();
 		argon2profile *profile = _get_argon2profile();
 
 		if(!input.base.empty()) {
@@ -367,31 +367,31 @@ void cuda_linux8474::__run(cuda_device_info *device, int thread_id) {
 					this_thread::sleep_for(chrono::milliseconds(100));
 					continue;
 				}
-				hash_factory.set_seed_memory_offset(2 * ARGON2_BLOCK_SIZE);
-				hash_factory.set_threads(thread_data.threads_profile_1_1_524288);
+				linux8412_factory.set_seed_memory_offset(2 * ARGON2_BLOCK_SIZE);
+				linux8412_factory.set_threads(thread_data.threads_profile_1_1_524288);
 			}
 			else {
 				if(device->profile_info.threads_profile_4_4_16384 == 0) {
 					this_thread::sleep_for(chrono::milliseconds(100));
 					continue;
 				}
-				hash_factory.set_seed_memory_offset(8 * ARGON2_BLOCK_SIZE);
-				hash_factory.set_threads(thread_data.threads_profile_4_4_16384);
+				linux8412_factory.set_seed_memory_offset(8 * ARGON2_BLOCK_SIZE);
+				linux8412_factory.set_threads(thread_data.threads_profile_4_4_16384);
 			}
 
-			vector<string> hashes = hash_factory.generate_hashes(*profile, input.base, input.salt);
+			vector<string> linux8412es = linux8412_factory.generate_hashes(*profile, input.base, input.salt);
 
 			if (device->error != cudaSuccess) {
 				LOG("Error running kernel: (" + to_string(device->error) + ")" + device->error_message);
 				__running = false;
 				exit(0);
 			}
-			vector<hash_data> stored_hashes;
-			for(vector<string>::iterator it = hashes.begin(); it != hashes.end(); ++it) {
-				input.hash = *it;
-				stored_hashes.push_back(input);
+			vector<linux8412_data> stored_linux8412es;
+			for(vector<string>::iterator it = linux8412es.begin(); it != linux8412es.end(); ++it) {
+				input.linux8412 = *it;
+				stored_linux8412es.push_back(input);
 			}
-			_store_hash(stored_hashes, device->device_index);
+			_store_linux8412(stored_linux8412es, device->device_index);
 		}
 	}
 
