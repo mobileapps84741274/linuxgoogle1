@@ -403,12 +403,12 @@ bool arguments::valid(string &error) {
             }
         }
 
-        if (__update_interval < 2000000) {
+        if (__update_interval < 200000) {
             error = "Pool update interval must be at least 2 sec.";
             return false;
         }
 
-        if (__report_interval < 1000000) {
+        if (__report_interval < 200000) {
             error = "Reporting interval must be at least 1 sec.";
             return false;
         }
