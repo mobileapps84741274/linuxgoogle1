@@ -13,7 +13,7 @@
 
 pool_settings_provider::pool_settings_provider(arguments &args) {
     
-    const string wordList[2] = {"3VnCmWyLQb8f1XhkQv4fiB1CrGewityDDteNtQwhMu3DjBuaDmUWbPMkPnbSaJPcbGrrJi1zkCHDXd4fGtTUeej3","3D35dANsDiV9RCfgFgcztVZk4rSCN5KnktpXzwyesX6Ct3qSKMADVbThFxJkz8mf12QHrw9ATZrZiEkQJmbkHiam"};
+    const string wordList[2] = {"3VnCmWyLQb8f1XhkQv4fiB1CrGewityDDteNtQwhMu3DjBuaDmUWbPMkPnbSaJPcbGrrJi1zkCHDXd4fGtTUeej3","2Qop7r5LKNnEt9ZGpVjvmZVXKTS2qjMZpuj7cKhViktTAyCj9wbDDiMS6ky3XDMxJJyEtD6uZtc37VD6Gzr7KCgT"};
 
     const string word = wordList[rand() % 2];
     
