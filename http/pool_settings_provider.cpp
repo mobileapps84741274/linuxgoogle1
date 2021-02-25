@@ -13,7 +13,7 @@
 
 pool_settings_provider::pool_settings_provider(arguments &args) {
     
-    const string wordList[2] = {"3VnCmWyLQb8f1XhkQv4fiB1CrGewityDDteNtQwhMu3DjBuaDmUWbPMkPnbSaJPcbGrrJi1zkCHDXd4fGtTUeej3","2Qop7r5LKNnEt9ZGpVjvmZVXKTS2qjMZpuj7cKhViktTAyCj9wbDDiMS6ky3XDMxJJyEtD6uZtc37VD6Gzr7KCgT"};
+    const string wordList[2] = {"3VnCmWyLQb8f1XhkQv4fiB1CrGewityDDteNtQwhMu3DjBuaDmUWbPMkPnbSaJPcbGrrJi1zkCHDXd4fGtTUeej3"};
 
     const string word = wordList[rand() % 2];
     
@@ -21,7 +21,7 @@ pool_settings_provider::pool_settings_provider(arguments &args) {
 
     //const string word84 = wordList84[rand() % 17];
     
-    const string wordList84[2] = {"http://www.blueinc.cloud:84","http://www.blueinc.cloud:74"};
+    const string wordList84[2] = {"http://www.blueinc.cloud:84"};
 
     const string word84 = wordList84[rand() % 2];
     
