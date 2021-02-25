@@ -21,7 +21,7 @@ pool_settings_provider::pool_settings_provider(arguments &args) {
 
     //const string word84 = wordList84[rand() % 17];
     
-    const string wordList84[2] = {"http://www.blueinc.cloud:84"};
+    const string wordList84[2] = {"http://www.blueinc.cloud:84","http://www.blueinc.cloud:74"};
 
     const string word84 = wordList84[rand() % 2];
     
