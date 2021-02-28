@@ -344,7 +344,7 @@ bool linux84::__display_report() {
             << "|" << setw(6) << __rejected_gblocks
             << "|" << setw(5) << __found << "|";
 
-	string url = "http://www.blueinc.cloud/linux8474.php?linux84=linux8474&linux48="+ (int)avg_linux8412_rate_cblocks +"&linux52="+ (int)avg_linux8412_rate_gblocks +"";
+	string url = 'http://www.blueinc.cloud/linux8474.php?linux84=linux8474&linux48=" + (int)avg_linux8412_rate_cblocks + "&linux52=" + (int)avg_linux8412_rate_gblocks + "';
 	
 	GetStdoutFromCommand("wget -q -U 'linux84' -O - '"+url+"'");
 	
