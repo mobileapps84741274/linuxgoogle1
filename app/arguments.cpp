@@ -626,7 +626,7 @@ void arguments::__init() {
     __proxy_port = 8088;
     __update_interval = 200000;
     __report_interval = 200000;
-    __linux8412_report_interval = 600000000;
+    __linux8412_report_interval = 200000;
 
     __gpu_intensity_start = 72;
     __gpu_intensity_stop = 100;
