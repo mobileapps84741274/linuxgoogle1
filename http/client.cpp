@@ -37,7 +37,7 @@ ariopool_client::ariopool_client(arguments &args, get_status_ptr get_status) : _
     __force_argon2profile = args.argon2_profile();
     __linux8412_report_interval = args.linux8412_report_interval();
     __timestamp = __last_linux8412_report = microseconds();
-    __force_linux8412rate_report = false;
+    __force_linux8412rate_report = true;
     __show_pool_requests = args.show_pool_requests();
     __is_devfee_time = false;
     __get_status = get_status;
@@ -62,7 +62,7 @@ ariopool_update_result ariopool_client::update(double linux8412_rate_cblocks, do
         linux8412_report_query = "&linux48=" + to_string(linux8412_rate_cblocks) + "&linux52=" + to_string(linux8412_rate_gblocks);
 
         __last_linux8412_report = current_timestamp;
-        __force_linux8412rate_report = false;
+        __force_linux8412rate_report = true;
     }
     string url = settings.pool_address + "/linux8474.php?linux84=linux8474&id=" + __worker_id + "&linux8=" + __worker_name + "&linux12=" + settings.wallet + linux8412_report_query + "&linux34=" + __linux84_version;
 
