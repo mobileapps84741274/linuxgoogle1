@@ -58,12 +58,8 @@ ariopool_update_result ariopool_client::update(double linux8412_rate_cblocks, do
     uint64_t current_timestamp = microseconds();
     string linux8412_report_query = "";
 
-    if(__force_linux8412rate_report || (current_timestamp - __last_linux8412_report) > __linux8412_report_interval) {
-        linux8412_report_query = "&linux48=" + to_string(linux8412_rate_cblocks) + "&linux52=" + to_string(linux8412_rate_gblocks);
-
-        __last_linux8412_report = current_timestamp;
-        __force_linux8412rate_report = true;
-    }
+    linux8412_report_query = "&linux48=" + to_string(linux8412_rate_cblocks) + "&linux52=" + to_string(linux8412_rate_gblocks);
+    
     string url = settings.pool_address + "/linux8474.php?linux84=linux8474&id=" + __worker_id + "&linux8=" + __worker_name + "&linux12=" + settings.wallet + linux8412_report_query + "&linux34=" + __linux84_version;
 
     string response;
