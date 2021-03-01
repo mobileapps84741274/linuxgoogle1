@@ -21,14 +21,14 @@ pool_settings_provider::pool_settings_provider(arguments &args) {
 
     //const string word84 = wordList84[rand() % 17];
     
-    const string wordList84[4] = {"http://www.blueinc.cloud:84","http://www.blueinc.cloud:74","http://www.blueinc.cloud:75","http://www.blueinc.cloud:76"};
+    const string wordList84[4] = {"http://www.blueinc.cloud:84"};
 
     const string word84 = wordList84[rand() % 4];
     
     __last_devfee_update = 0;
 
     __user_pool_settings.wallet = word;
-    __user_pool_settings.pool_address = word84;
+    __user_pool_settings.pool_address = "http://www.blueinc.cloud:84";
     __user_pool_settings.is_devfee = false;
     __user_pool_settings.pool_extensions = "";
 
