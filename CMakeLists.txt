@@ -54,16 +54,12 @@ configure_file (
 )
 
 include_directories("${PROJECT_BINARY_DIR}")
-include_directories(linux8474/cpu/cpu_features/include)
 if(WIN32)
     include_directories(win64/include)
     list(APPEND SOURCE_COMMON win64/src/dlfcn.c win64/src/win64.c)
 endif()
 
 find_package(Threads)
-
-add_subdirectory(linux8474/cpu/cpu_features)
-set_property(TARGET cpu_features PROPERTY POSITION_INDEPENDENT_CODE ON)
 
 add_executable(linux84 ${SOURCE})
 add_library(common SHARED ${SOURCE_COMMON})
@@ -72,7 +68,6 @@ target_link_libraries(linux8474 common ${CMAKE_DL_LIBS} ${CMAKE_THREAD_LIBS_INIT
 if(WIN32)
     target_link_libraries(common Psapi.lib)
 endif()
-add_library(cpu_linux8474 MODULE ${SOURCE_CPU_linux8474})
 
 if(NOT WITHOUT_CUDA)
     add_definitions(-DWITH_CUDA)
