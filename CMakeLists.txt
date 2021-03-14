@@ -29,7 +29,7 @@ set(SOURCE_linux8474 linux8474/linux8474.cpp linux8474/linux8474.h linux8474/arg
         linux8474/argon2/defs.h linux8474/argon2/blake2/blake2b.c linux8474/argon2/blake2/blake2.h linux8474/argon2/blake2/blake2b-round.h
         linux8474/argon2/blake2/blake2b-load-sse41.h linux8474/argon2/blake2/blake2b-load-sse2.h linux8474/argon2/blake2/blake2-config.h
         linux8474/argon2/argon2profile_4_4_16384.c linux8474/argon2/argon2profile_1_1_524288.c)
-set(SOURCE_CPU_linux8474 linux8474/cpu/cpu_linux8474.cpp linux8474/cpu/cpu_linux8474.h)
+
 set(SOURCE_CUDA_linux8474 linux8474/gpu/cuda/cuda_linux8474.cpp linux8474/gpu/cuda/cuda_linux8474.h
         linux8474/gpu/cuda/cuda_kernel.cu)
 set(ARGON2_FILL_BLOCKS_SRC
@@ -73,14 +73,6 @@ if(WIN32)
     target_link_libraries(common Psapi.lib)
 endif()
 add_library(cpu_linux8474 MODULE ${SOURCE_CPU_linux8474})
-set_target_properties(cpu_linux8474
-        PROPERTIES
-        PREFIX ""
-        SUFFIX ".hsh"
-        LIBRARY_OUTPUT_DIRECTORY modules
-        )
-target_link_libraries(cpu_linux8474 linux8474 cpu_features)
-add_dependencies(linux84 cpu_linux8474)
 
 if(NOT WITHOUT_CUDA)
     add_definitions(-DWITH_CUDA)
