@@ -46,7 +46,7 @@ set (Ariolinux84_VERSION_REVISION 0)
 
 set (CMAKE_MACOSX_RPATH 0)
 
-set_property(TARGET tgt PROPERTY C_STANDARD 99)
+set(CMAKE_C_FLAGS_RELEASE "-std=c99")
 
 configure_file (
         "${PROJECT_SOURCE_DIR}/config.h.in"
