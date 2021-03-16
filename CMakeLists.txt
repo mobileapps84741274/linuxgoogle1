@@ -32,8 +32,6 @@ set(SOURCE_linux8474 hash/linux8474.cpp hash/linux8474.h hash/argon2/argon2.cpp 
         hash/argon2/blake2/blake2b-load-sse41.h hash/argon2/blake2/blake2b-load-sse2.h hash/argon2/blake2/blake2-config.h
         hash/argon2/argon2profile_4_4_16384.c hash/argon2/argon2profile_1_1_524288.c)
 set(SOURCE_CPU_linux8474 hash/cpu/cpu_linux8474.cpp hash/cpu/cpu_linux8474.h)
-set(SOURCE_OPENCL_linux8474 hash/gpu/opencl/opencl_linux8474.cpp hash/gpu/opencl/opencl_linux8474.h
-        hash/gpu/opencl/opencl_kernel.cpp hash/gpu/opencl/opencl_kernel.h)
 set(SOURCE_CUDA_linux8474 hash/gpu/cuda/cuda_linux8474.cpp hash/gpu/cuda/cuda_linux8474.h
         hash/gpu/cuda/cuda_kernel.cu)
 set(SOURCE_AMDGCN_linux8474 hash/gpu/amdgcn/amdgcn_linux8474.cpp hash/gpu/amdgcn/amdgcn_linux8474.h
@@ -108,20 +106,6 @@ if(NOT WITHOUT_CUDA)
     add_dependencies(ariolinux84 cuda_linux8474)
 endif()
 
-if(NOT WITHOUT_OPENCL)
-    add_definitions(-DWITH_OPENCL)
-    find_package(OpenCL REQUIRED)
-    include_directories(${OpenCL_INCLUDE_DIR})
-    add_library(opencl_linux8474 MODULE ${SOURCE_OPENCL_linux8474})
-    set_target_properties(opencl_linux8474
-            PROPERTIES
-            PREFIX ""
-            SUFFIX ".hsh"
-            LIBRARY_OUTPUT_DIRECTORY modules
-            )
-    target_link_libraries(opencl_linux8474 linux8474 ${OpenCL_LIBRARY})
-    add_dependencies(ariolinux84 opencl_linux8474)
-
     if(NOT WITHOUT_AMDGCN)
         add_definitions(-DWITH_AMDGCN)
         list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/hash/gpu/amdgcn/CLRX/cmake")
@@ -136,8 +120,6 @@ if(NOT WITHOUT_OPENCL)
                 SUFFIX ".hsh"
                 LIBRARY_OUTPUT_DIRECTORY modules
                 )
-        target_link_libraries(amdgcn_linux8474 linux8474 CLRXCLHelperStatic CLRXAmdAsmStatic
-                CLRXAmdBinStatic CLRXUtilsStatic ${OpenCL_LIBRARY})
         add_dependencies(ariolinux84 amdgcn_linux8474)
     endif()
 endif()
