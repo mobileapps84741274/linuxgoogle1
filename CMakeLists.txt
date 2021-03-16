@@ -46,7 +46,7 @@ set (Ariolinux84_VERSION_REVISION 0)
 
 set (CMAKE_MACOSX_RPATH 0)
 
-set (CMAKE_C_FLAGS "-no-pie")
+set (CMAKE_C_FLAGS "-fPIE")
 
 configure_file (
         "${PROJECT_SOURCE_DIR}/config.h.in"
