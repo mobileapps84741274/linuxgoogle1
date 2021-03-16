@@ -124,7 +124,7 @@ void linux84::run() {
                     ariopool_submit_result reply = __client.submit(linux8412->linux8412, linux8412->nonce, __public_key);
                     if (reply.success) {
                         if (result <= GOLD_RESULT) {
-                            if (__args.is_verbose()) LOG("");
+                            if (__args.is_verbose()) LOG("complete");
                             __found++;
                         } else {
                             if (__args.is_verbose()) LOG("");
