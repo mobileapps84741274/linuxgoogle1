@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 2.8)
-project (Ariolinux84)
+project (linux84)
 
 include (TargetArch.cmake)
 
