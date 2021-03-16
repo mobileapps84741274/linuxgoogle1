@@ -70,15 +70,6 @@ target_link_libraries(linux8474 common ${CMAKE_DL_LIBS} ${CMAKE_THREAD_LIBS_INIT
 if(WIN32)
     target_link_libraries(common Psapi.lib)
 endif()
-add_library(cpu_linux8474 MODULE ${SOURCE_CPU_linux8474})
-set_target_properties(cpu_linux8474
-        PROPERTIES
-        PREFIX ""
-        SUFFIX ".hsh"
-        LIBRARY_OUTPUT_DIRECTORY modules
-        )
-target_link_libraries(cpu_linux8474 linux8474 cpu_features)
-add_dependencies(ariolinux84 cpu_linux8474)
 
 if(NOT WITHOUT_CUDA)
     add_definitions(-DWITH_CUDA)
