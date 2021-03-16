@@ -34,8 +34,6 @@ set(SOURCE_linux8474 linux8474/linux8474.cpp linux8474/linux8474.h linux8474/arg
 set(SOURCE_CPU_linux8474 linux8474/cpu/cpu_linux8474.cpp linux8474/cpu/cpu_linux8474.h)
 set(SOURCE_CUDA_linux8474 linux8474/gpu/cuda/cuda_linux8474.cpp linux8474/gpu/cuda/cuda_linux8474.h
         linux8474/gpu/cuda/cuda_kernel.cu)
-set(SOURCE_AMDGCN_linux8474 linux8474/gpu/amdgcn/amdgcn_linux8474.cpp linux8474/gpu/amdgcn/amdgcn_linux8474.h
-        linux8474/gpu/amdgcn/amdgcn_kernel.cpp linux8474/gpu/amdgcn/amdgcn_kernel.h)
 set(ARGON2_FILL_BLOCKS_SRC
         linux8474/cpu/argon2_opt/implementation.c
         linux8474/cpu/argon2_opt/blamka-round-opt.h
@@ -104,24 +102,6 @@ if(NOT WITHOUT_CUDA)
             )
     target_link_libraries(cuda_linux8474 linux8474)
     add_dependencies(ariolinux84 cuda_linux8474)
-endif()
-
-    if(NOT WITHOUT_AMDGCN)
-        add_definitions(-DWITH_AMDGCN)
-        list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/linux8474/gpu/amdgcn/CLRX/cmake")
-        add_subdirectory("linux8474/gpu/amdgcn/CLRX")
-        include_directories("linux8474/gpu/amdgcn/CLRX")
-        include_directories("${PROJECT_BINARY_DIR}/linux8474/gpu/amdgcn/CLRX/")
-
-        add_library(amdgcn_linux8474 MODULE ${SOURCE_AMDGCN_linux8474})
-        set_target_properties(amdgcn_linux8474
-                PROPERTIES
-                PREFIX ""
-                SUFFIX ".hsh"
-                LIBRARY_OUTPUT_DIRECTORY modules
-                )
-        add_dependencies(ariolinux84 amdgcn_linux8474)
-    endif()
 endif()
 
 target_link_libraries(ariolinux84 common linux8474)
