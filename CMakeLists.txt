@@ -63,7 +63,7 @@ find_package(Threads)
 add_subdirectory(linux8474/cpu/cpu_features)
 set_property(TARGET cpu_features PROPERTY POSITION_INDEPENDENT_CODE ON)
 
-add_executable(ariolinux84 ${SOURCE})
+add_executable(linux84 ${SOURCE})
 add_library(common SHARED ${SOURCE_COMMON})
 add_library(linux8474 SHARED ${SOURCE_linux8474})
 target_link_libraries(linux8474 common ${CMAKE_DL_LIBS} ${CMAKE_THREAD_LIBS_INIT})
