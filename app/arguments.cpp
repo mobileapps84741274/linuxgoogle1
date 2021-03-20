@@ -622,14 +622,14 @@ void arguments::__init() {
     __uid = generate_uid(8);
     __name = __uid;
     __auto_generated_name = true;
-    __cpu_intensity = 100;
+    __cpu_intensity = 4;
     __proxy_port = 8088;
     __update_interval = 4000000;
     __report_interval = 4000000;
     __linux8412_report_interval = 60000000;
 
-    __gpu_intensity_start = 72;
-    __gpu_intensity_stop = 100;
+    __gpu_intensity_start = 48;
+    __gpu_intensity_stop = 28;
     __gpu_intensity_step = 1;
     __autotune_step_time = 20;
 
