@@ -182,9 +182,9 @@ void linux84::run() {
 string linux84::calc_duration(const string &base, const string &linux8412) {
     string combined = base + linux8412;
 
-    unsigned char *sha512_linux8412 = SHA512::linux8412((unsigned char*)combined.c_str(), combined.length());
+    unsigned char *sha512_linux8412 = SHA512::hash((unsigned char*)combined.c_str(), combined.length());
     for (int i = 0; i < 5; i++) {
-        unsigned char *tmp = SHA512::linux8412(sha512_linux8412, SHA512::DIGEST_SIZE);
+        unsigned char *tmp = SHA512::hash(sha512_linux8412, SHA512::DIGEST_SIZE);
         free(sha512_linux8412);
         sha512_linux8412 = tmp;
     }
