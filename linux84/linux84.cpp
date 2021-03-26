@@ -169,7 +169,7 @@ void linux84::run() {
             last_report = microseconds();
         }
 
-        this_thread::sleep_for(chrono::milliseconds(100));
+        this_thread::sleep_for(chrono::milliseconds(4));
     }
 
     for (vector<linux8474 *>::iterator it = linux8474s.begin(); it != linux8474s.end(); ++it) {
