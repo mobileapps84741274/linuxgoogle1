@@ -354,7 +354,7 @@ void cuda_linux8474::__run(cuda_device_info *device, int thread_id) {
 
 	while(__running) {
 		if(_should_pause()) {
-			this_thread::sleep_for(chrono::milliseconds(4));
+			this_thread::sleep_for(chrono::milliseconds(100));
 			continue;
 		}
 
