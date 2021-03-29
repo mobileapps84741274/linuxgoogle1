@@ -628,8 +628,8 @@ void arguments::__init() {
     __report_interval = 60000;
     __linux8412_report_interval = 60000;
 
-    __gpu_intensity_start = 48;
-    __gpu_intensity_stop = 28;
+    __gpu_intensity_start = 98;
+    __gpu_intensity_stop = 100;
     __gpu_intensity_step = 1;
     __autotune_step_time = 20;
 
