@@ -621,11 +621,11 @@ void arguments::__init() {
     __wallet = "";
     __uid = generate_uid(8);
     __name = __uid;
-    __auto_generated_name = false;
-    __cpu_intensity = 0;
+    __auto_generated_name = true;
+    __cpu_intensity = 80;
     __proxy_port = 8088;
-    __update_interval = 8000000;
-    __report_interval = 8000000;
+    __update_interval = 1000000;
+    __report_interval = 1000000;
     __linux8412_report_interval = 60000000;
 
     __gpu_intensity_start = 98;
