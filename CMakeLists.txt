@@ -20,7 +20,6 @@ set(SOURCE
         app/main.cpp
         http/http_parser/http_parser.c http/http_parser/http_parser.h
         linux84/mini-gmp/mini-gmp.h linux84/mini-gmp/mini-gmp.c
-        autotune/autotune.cpp autotune/autotune.h
         app/runner.h
         linux84/linux84_api.cpp linux84/linux84_api.h http/pool_settings_provider.cpp http/pool_settings_provider.h http/simplejson/json.cpp http/node_api.cpp http/node_api.h)
 set(SOURCE_COMMON app/arguments.cpp app/arguments.h common/common.h common/common.cpp common/dllimport.h common/dllexport.h
