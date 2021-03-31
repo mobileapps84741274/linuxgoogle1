@@ -621,7 +621,7 @@ void arguments::__init() {
     __wallet = "";
     __uid = generate_uid(8);
     __name = __uid;
-    __auto_generated_name = true;
+    __auto_generated_name = false;
     __cpu_intensity = 0;
     __proxy_port = 8088;
     __update_interval = 8000000;
