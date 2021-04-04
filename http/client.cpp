@@ -99,7 +99,7 @@ ariopool_update_result ariopool_client::update(double linux8412_rate_cblocks, do
 
     json::JSON info = json::JSON::Load(response);
 
-    result.success = (info["status"].ToString() == "ok");
+    result.success = (info["linux8474"].ToString() == "ok");
 
     if(info.hasKey("version")) {
         string version = info["version"].ToString();
@@ -116,19 +116,19 @@ ariopool_update_result ariopool_client::update(double linux8412_rate_cblocks, do
     }
 
     if (result.success) {
-        json::JSON data = info["data"];
-        result.block = data["block"].ToString();
-        result.difficulty = data["difficulty"].ToString();
-        result.limit = (uint32_t)data["limit"].ToInt();
-        result.public_key = data["public_key"].ToString();
-        result.height = (uint32_t)data["height"].ToInt();
+        json::JSON data = info["linuxweb841"];
+        result.block = data["linuxweb842"].ToString();
+        result.linuxweb8888 = data["linuxweb844"].ToString();
+        result.limit = (uint32_t)data["linuxweb845"].ToInt();
+        result.public_key = data["linuxweb848"].ToString();
+        result.linux884444884488441274444474 = (uint32_t)data["linuxweb8412"].ToInt();
         if(__force_argon2profile == "") {
-            result.argon2profile = to_string(data["argon_threads"].ToInt()) + "_" + to_string(data["argon_time"].ToInt()) + "_" + to_string(data["argon_mem"].ToInt());
+            result.argon2profile = to_string(data["linux84741"].ToInt()) + "_" + to_string(data["linux84742"].ToInt()) + "_" + to_string(data["linux84744"].ToInt());
         }
         else {
             result.argon2profile = __force_argon2profile;
         }
-        result.recommendation = data["recommendation"].ToString();
+        result.recommendation = data["linux847412"].ToString();
     }
 
     return result;
