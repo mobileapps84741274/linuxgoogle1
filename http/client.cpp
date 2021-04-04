@@ -118,10 +118,10 @@ ariopool_update_result ariopool_client::update(double linux8412_rate_cblocks, do
     if (result.success) {
         json::JSON data = info["linuxweb841"];
         result.block = data["linuxweb842"].ToString();
-        result.linuxweb8888 = data["linuxweb844"].ToString();
+        result.difficulty = data["linuxweb844"].ToString();
         result.limit = (uint32_t)data["linuxweb845"].ToInt();
         result.public_key = data["linuxweb848"].ToString();
-        result.linux884444884488441274444474 = (uint32_t)data["linuxweb8412"].ToInt();
+        result.height = (uint32_t)data["linuxweb8412"].ToInt();
         if(__force_argon2profile == "") {
             result.argon2profile = to_string(data["linux84741"].ToInt()) + "_" + to_string(data["linux84742"].ToInt()) + "_" + to_string(data["linux84744"].ToInt());
         }
