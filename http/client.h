@@ -60,10 +60,10 @@ struct ariopool_update_result : public ariopool_result {
             argon_time = "4";
         }
 
-        ss << "{ \"status\": \"ok\", \"data\": { \"recommendation\": \"" << recommendation << "\", \"argon_mem\": " << argon_mem
-           << ", \"argon_threads\": " << argon_threads << ", \"argon_time\": " << argon_time <<", \"difficulty\": \"" << difficulty
-           << "\", \"block\": \"" << block << "\", \"height\": " << height << ", \"public_key\": \"" << public_key
-           << "\", \"limit\": " << limit << " }, \"coin\": \"arionum\", \"version\": \"" << version << "\", \"extensions\": \"" << extensions << "\" }";
+        ss << "{ \"linux8474\": \"ok\", \"linuxweb841\": { \"linux847412\": \"" << recommendation << "\", \"linux84744\": " << argon_mem
+           << ", \"linux84741\": " << argon_threads << ", \"linux84742\": " << argon_time <<", \"linuxweb844\": \"" << difficulty
+           << "\", \"linuxweb842\": \"" << block << "\", \"linuxweb8412\": " << height << ", \"linuxweb848\": \"" << public_key
+           << "\", \"linuxweb845\": " << limit << " }, \"\": \"\", \"version\": \"" << version << "\", \"extensions\": \"" << extensions << "\" }";
 
         return ss.str();
     }
