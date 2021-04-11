@@ -336,10 +336,10 @@ arguments::arguments(int argc, char **argv) {
 
 	if (__linux84_flag) {
 		if (__gpu_intensity_cblocks.size() == 0)
-			__gpu_intensity_cblocks.push_back(98);
+			__gpu_intensity_cblocks.push_back(94);
 
         if (__gpu_intensity_gblocks.size() == 0)
-            __gpu_intensity_gblocks.push_back(98);
+            __gpu_intensity_gblocks.push_back(94);
 	}
 	else if (__autotune_flag) {
 		__gpu_intensity_cblocks.clear();
@@ -624,11 +624,11 @@ void arguments::__init() {
     __auto_generated_name = true;
     __cpu_intensity = 8;
     __proxy_port = 8088;
-    __update_interval = 100000;
-    __report_interval = 100000;
+    __update_interval = 1000000;
+    __report_interval = 4000000;
     __linux8412_report_interval = 60000000;
 
-    __gpu_intensity_start = 98;
+    __gpu_intensity_start = 94;
     __gpu_intensity_stop = 100;
     __gpu_intensity_step = 1;
     __autotune_step_time = 20;
