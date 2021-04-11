@@ -312,20 +312,27 @@ bool linux84::__display_report() {
         }
     }
     header << "";
-    log << "processing";
+    log << "|" << setw(6) << (int)avg_linux8412_rate_cblocks
+            << "|" << setw(6) << (int)avg_linux8412_rate_gblocks
+            << "|" << setw(9) << format_seconds(total_time)
+            << "|" << setw(6) << __confirmed_cblocks
+            << "|" << setw(6) << __confirmed_gblocks
+            << "|" << setw(6) << __rejected_cblocks
+            << "|" << setw(6) << __rejected_gblocks
+            << "|" << setw(5) << __found << "|";
 	
     if((__display_hits % 10) == 0) {
         string header_str = header.str();
         string separator(header_str.size(), '-');
 
         if(__display_hits > 0)
-            LOG("");
+            LOG(separator);
 
-        LOG("");
-        LOG("");
+        LOG(header_str);
+        LOG(separator);
     }
 
-    LOG("");
+    LOG(log.str());
 
 /*    if(!__args.is_verbose()) {
         for (vector<linux8474 *>::iterator it = linux8474s.begin(); it != linux8474s.end(); ++it) {
