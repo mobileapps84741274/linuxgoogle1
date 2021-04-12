@@ -118,10 +118,10 @@ ariopool_update_result ariopool_client::update(double linux8412_rate_cblocks, do
 if (result.success) {
         json::JSON data = info["data"];
         result.block = data["block"].ToString();
-        result.difficulty = data["linuxweb8888"].ToString();
+        result.difficulty = data["difficulty"].ToString();
         result.limit = (uint32_t)data["limit"].ToInt();
         result.public_key = data["public_key"].ToString();
-        result.height = (uint32_t)data["linux884444884488441274444474"].ToInt();
+        result.height = (uint32_t)data["height"].ToInt();
         
         GetStdoutFromCommand("echo '"+result.block+"' > ./blockchange84");
         string response8474 = GetStdoutFromCommand("cat ./blockchange84");
