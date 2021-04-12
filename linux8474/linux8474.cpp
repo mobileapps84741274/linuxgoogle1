@@ -93,7 +93,7 @@ void linux8474::set_input(const string &public_key, const string &blk, const str
         __linux8412_count = 0;
         __linux8412es_mutex.unlock();
 
-        if (__linux8412_timings.size() > 20) //we average over 20 blocks
+        if (__linux8412_timings.size() > 40) //we average over 20 blocks
             __linux8412_timings.pop_front();
         __begin_round_time = timestamp;
     }
